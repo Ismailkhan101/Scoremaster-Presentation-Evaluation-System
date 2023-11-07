@@ -1,0 +1,51 @@
+﻿@model scoremaster_Presentation.ViewModel.RolesVM
+@{
+}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Update Role</h4>
+                        <form class="forms-sample" method="post"
+                              asp-controller="Role" asp-action="UpdateRole">
+                            <div class="row justify-content-between">
+                                <input type="hidden" asp-for="RoleId" />
+                                <div class="col-12 col-md-6 col-lg-3">
+                                   
+                                </div>
+                                <div class="col-1 mt-4">
+                                    <button type="button" class="btn btn-sm btn-success" onclick="SelectAllPermissions()">Select All</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                @for (var per = 0; per < Model.AddUpdatePermissions.Count(); per++)
+                                {
+                                    <input type="hidden" asp-for="@Model.AddUpdatePermissions[per].PermissionId" />
+                                    <input type="hidden" asp-for="@Model.AddUpdatePermissions[per].PermissionName" />
+                                    <div class="col col-md-4 mt-2">
+                                        <div class="form-check">
+                                            <label style="font-size:15px;" class="form-check-label badge badge-info"><input type="checkbox" class="form-check-input primary" asp-for="@Model.AddUpdatePermissions[per].isSelected" />@Model.AddUpdatePermissions[per].PermissionName</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <div class="float-right">
+                                        <a class="btn btn-light" asp-controller="Role" asp-action="Roles">Cancel</a>
+                                        <button type="submit" asp-for="RolesVM(@Model.AddUpdatePermissions)" class="btn btn-primary mr-2">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/focus/custom.js"></script>
+}

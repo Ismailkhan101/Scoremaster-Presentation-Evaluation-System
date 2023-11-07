@@ -1,0 +1,46 @@
+﻿@model IEnumerable<scoremaster_Presentation.Models.Event>
+<div class="card card border-dark">
+    <div class="card-header btn btn-primary border border-warning rounded form-select">
+        Event List
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table" id="example">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Event</th>
+                        
+                        <th scope="col">Co-ordinator</th>
+                        <th scope="col">Year</th>
+                        <th>Individual</th>
+                        <th scope="col">No Of Groups</th>
+                        <th scope="col">No Of Examiners</th>
+                        <th scope="col">Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.EventName</th>
+                            <td>@item.Organizer</td>
+                            <td>@item.Year</td>
+                            <td>@item.GroupIndividual</td>
+                            <td>@item.NoOfGroups</td>
+                            <td>@item.NoOfExaminers</td>
+                            <td>@item.EventDate</td>
+                            <td>
+                                <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId">Individual</a>
+                                <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId">Group</a>
+                                <a class="btn btn-secondary btn-sm" asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId">External Examiner</a>
+                            </td>
+                        </tr>
+                    }
+                    
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

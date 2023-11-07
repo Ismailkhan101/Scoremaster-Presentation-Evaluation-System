@@ -1,0 +1,25 @@
+﻿@model scoremaster_Presentation.Models.Department
+<div class="unix-login">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="login-content">
+                    <div class="login-logo">
+                        <a href="index.html"><span>Focus</span></a>
+                    </div>
+                    <div class="login-form">
+                        <h4>Department</h4>
+                        <form asp-action="AddDepartment" method="post">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <input type="text" asp-for="DeptName" class="form-control" required="Please fill Department" placeholder="Enter Department">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-flat m-b-15">Save</button>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

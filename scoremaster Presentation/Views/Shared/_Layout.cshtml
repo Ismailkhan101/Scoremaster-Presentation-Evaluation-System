@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - scoremaster_Presentation</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/scoremaster_Presentation.styles.css" asp-append-version="true" />
+
+
+
+    @* Focus template *@
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- Styles -->
+    <link href="~/css/focus/lib/calendar2/pignose.calendar.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/chartist/chartist.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/themify-icons.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/weather-icons.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/menubar/sidebar.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/helper.css" rel="stylesheet" />
+    <link href="~/css/focus/style.css" rel="stylesheet" />
+    <link href="~/css/focus/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
+
+
+    <link href="~/css/focus/default.css" rel="stylesheet" />
+    <link href="~/css/focus/component.css" rel="stylesheet" />
+   
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+</head>
+<body>
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo">
+                        <a asp-controller="Home" asp-action="Index">
+                            <!-- <img src="images/logo.png" alt="" /> --><span>ScoreMaster</span>
+                        </a>
+                    </div>
+                    <li class="label">Main</li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-home"></i> Dashboard <span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                            <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>External Users</a>
+                            <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Users</a>
+                            <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add User</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="label">Department</li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-bar-chart-alt"></i> Department <span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                            <li><a class="nav-menu-item" asp-controller="Department" asp-action="DepartmentList"><i class="ti-user"></i>Department</a>
+                            <li><a class="nav-menu-item" asp-controller="Department" asp-action="AddDepartment"><i class="ti-user"></i>AddDepartment</a>
+                        </ul>
+                    </li>
+
+
+                    <li class="label">Event</li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-target"></i> Event<span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                           
+                            @if (User.HasClaim("Permission", "Event.List"))
+                            {
+                                  <li><a class="nav-menu-item" asp-controller="Event" asp-action="EventList"><i class="ti-user"></i>Events</a></li>
+                           }
+                            @if (User.HasClaim("Permission", "Event.Create"))
+                            {
+
+                                <li><a class="nav-menu-item" asp-controller="Event" asp-action="EventCreate"><i class="ti-user"></i>Event Create</a></li>
+                            }
+                            @if (User.HasClaim("Permission", "Event.Join"))
+                            {
+                            <li><a class="nav-menu-item" asp-controller="Event" asp-action="JoinEvent"><i class="ti-user"></i> Join Event</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li><a href="../documentation/index.html"><i class="ti-file"></i> Generate Result</a></li>
+
+
+                    <li class="label">Role</li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-target"></i> Role<span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+                            <li><a class="nav-menu-item" asp-controller="Role" asp-action="AddRole"><i class="ti-user"></i>Create Role</a>
+                            <li>
+                                <a class="nav-menu-item" asp-controller="Role" asp-action="Roles"><i class="ti-user"></i>Roles</a>
+                                    @* <li><a class="nav-menu-item" asp-controller="Event" asp-action="JoinEvent"><i class="ti-user"></i> Join Event</a> *@
+                        </ul>
+                    </li>
+                    <li><a class="nav-menu-item" asp-controller="Login" asp-action="LoginPage"><i class="ti-close"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrap">
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+   @*  Focus template *@
+
+    <script src="~/js/focus/lib/bootstrap.min.js"></script>
+    <script src="~/js/focus/lib/jquery.nanoscroller.min.js"></script>
+    <script src="~/js/focus/lib/menubar/sidebar.js"></script>
+    <script src="~/js/focus/lib/preloader/pace.min.js"></script>
+    <script src="~/js/focus/lib/bootstrap.min.js"></script>
+   <script src="~/js/focus/scripts.js"></script>
+  
+    <!-- bootstrap -->
+    <script src="~/js/focus/lib/calendar-2/moment.latest.min.js"></script>
+    <script src="~/js/focus/lib/calendar-2/pignose.calendar.min.js"></script>
+    <script src="~/js/focus/lib/calendar-2/pignose.init.js"></script>
+    <script src="~/js/focus/lib/weather/jquery.simpleweather.min.js"></script>
+
+    <script src="~/js/focus/lib/weather/weather-init.js"></script>
+    <script src="~/js/focus/lib/circle-progress/circle-progress.min.js"></script>
+
+    <script src="~/js/focus/lib/circle-progress/circle-progress-init.js"></script>
+    <script src="~/js/focus/lib/chartist/chartist.min.js"></script>
+    <script src="~/js/focus/lib/sparklinechart/jquery.sparkline.min.js"></script>
+    <script src="~/js/focus/lib/sparklinechart/sparkline.init.js"></script>
+    <script src="~/js/focus/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/js/focus/lib/owl-carousel/owl.carousel-init.js"></script>
+    
+    <script src="~/js/focus/lib/data-table/datatables.min.js"></script>
+    <script src="~/js/focus/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/js/focus/lib/data-table/buttons.flash.min.js"></script>
+    <script src="~/js/focus/lib/data-table/jszip.min.js"></script>
+    <script src="~/js/focus/lib/data-table/pdfmake.min.js"></script>
+    <script src="~/js/focus/lib/data-table/vfs_fonts.js"></script>
+    <script src="~/js/focus/lib/data-table/buttons.html5.min.js"></script>
+    <script src="~/js/focus/lib/data-table/buttons.print.min.js"></script>
+    <script src="~/js/focus/lib/data-table/datatables-init.js"></script>
+ 
+    <!-- scripit init-->
+    <script src="js/dashboard2.js"></script>
+    @* datatable *@ 
+    
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+﻿@model scoremaster_Presentation.Models.Group
+@{
+    var remaininggroups = ViewBag.IndualGroups - ViewBag.MemberCount;
+}
+<div class="row">
+    
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Total Groups</div>
+                    <div class="stat-digit">@ViewBag.IndualGroups</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Completed Groups </div>
+                    <div class="stat-digit">@ViewBag.MemberCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Remaining Group Details </div>
+                    <div class="stat-digit">@remaininggroups</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+@if (ViewBag.IndualGroups > ViewBag.MemberCount)
+{
+    <div class="card card border-dark">
+        <div class="card-header btn btn-primary border border-warning rounded">
+            Individula Member
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form id="groupForm" method="post" asp-action="IndividualMember">
+                    <input type="text" hidden asp-for="EventId" />
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" id="title" required asp-for="Title" placeholder="Enter Presentation For...">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Select Supervisor</label>
+                                <select class="form-control group-select" required asp-for="Supervisor" asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
+                                    <option value="">select Supervisor</option>
+
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Select Co-Supervisor</label>
+                                <select class="form-control group-select" required asp-for="CoSupervisor" asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
+                                    <option value="">select Co-Supervisor</option>
+
+                                </select>
+                                <div class="invalid-feedback">Example invalid custom select feedback</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Member Name</label>
+                                <input class="form-control " required name="Name" placeholder="Eter Name">
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>CMS Id</label>
+                                <input class="form-control " required name="CMSID" placeholder="Enter CMSID">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-lg">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <th><h1>Group details are completed</h1></th>
+}

@@ -1,0 +1,67 @@
+﻿@model scoremaster_Presentation.ViewModel.RolesVM
+<style>
+
+</style>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Roles</h4>
+                        <form class="forms-sample" method="post"
+                              asp-controller="Role" asp-action="AddRoles">
+                            <div class="row justify-content-between">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label asp-for="RoleName">Role Name</label>
+                                        <input type="text" class="form-control" asp-for="RoleName" placeholder="Enter Role Name"  required/>
+                                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-1 mt-4" style="margin-right:40px;">
+                                    <button type="button" class="btn btn-sm btn-success"  onclick="SelectAllPermissions()">Select All</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                @for (var per = 0; per < Model.AddUpdatePermissions.Count(); per++)
+                                {
+                                    <input type="hidden" asp-for="@Model.AddUpdatePermissions[per].PermissionId" />
+                                    <input type="hidden" asp-for="@Model.AddUpdatePermissions[per].PermissionName" />
+                                    <div class="col-2 mt-2">
+                                        <div class="form-check">
+                                            <label class="form-check-label badge badge-info" style="font-size:15px;"><input type="checkbox" asp-for="@Model.AddUpdatePermissions[per].isSelected" />@Model.AddUpdatePermissions[per].PermissionName</label>
+                                        </div>
+                                    </div>
+                                }
+                                @*<input type="hidden" asp-for="AddUpdatePermissions"/>*@
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <div class="float-right">
+                                        <button type="submit" asp-for="RolesVM(@Model.AddUpdatePermissions)" class="btn btn-primary mr-2">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ @section scripts{
+   
+
+   <script src="~/js/focus/custom.js"></script>
+} 
+@* <script>
+    
+    function SelectAllPermissions() {
+        // Select all checkboxes with the "form-check-input" class
+        const checkboxes = document.querySelectorAll('.form-check-input');
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = true; // Set the "checked" property to true
+        });
+</script> *@

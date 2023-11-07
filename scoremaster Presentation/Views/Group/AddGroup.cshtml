@@ -1,0 +1,185 @@
+﻿@model scoremaster_Presentation.Models.Group
+@{
+    var remaininggroups = ViewBag.IndualGroups - ViewBag.MemberCount;
+}
+<div class="row">
+
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Total Groups</div>
+                    <div class="stat-digit">@ViewBag.IndualGroups</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Completed Groups </div>
+                    <div class="stat-digit">@ViewBag.MemberCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib">
+                    <i class="ti-user color-primary border-primary"></i>
+                </div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Remaining Group Details </div>
+                    <div class="stat-digit">@remaininggroups</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@if (ViewBag.IndualGroups > ViewBag.MemberCount)
+{
+<div class="card card border-dark ">
+    <div class="card-header btn btn-primary border border-warning rounded form-select">
+        Add Group
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <form id="groupForm" method="post" asp-action="AddGroup">
+                <div class="form-row">
+                    <input type="text" hidden asp-for="EventId"/>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Title</label>
+                            <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Enter Presentation For...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Select Supervisor</label>
+                            <select class="form-control group-select form-select"  required asp-for="Supervisor"  asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
+                                <option value="">select Supervisor</option>
+                               
+                            </select>
+                            <div class="invalid-feedback">Example invalid custom select feedback</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Select Co-Supervisor</label>
+                            <select class="form-control group-select form-select " id="coSupervisor" required asp-for="CoSupervisor" asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
+                                <option value="">select Co-Supervisor</option>
+                               
+                            </select>
+                            <div class="invalid-feedback">Example invalid custom select feedback</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button type="button" style="margin-top:32px;" class="btn btn-primary btn-sm form-control" id="addMember">Add Members</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-row" id="members">
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-lg" id="submitGroup">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    <th><h1>Group details are completed</h1></th>
+}
+
+<script>
+    var memberData = []; // Initialize an empty array to store member data
+
+    document.getElementById('addMember').addEventListener('click', function () {
+        // Create a new member div
+        var memberDiv = document.createElement('div');
+        memberDiv.className = 'col-md-6';
+        memberDiv.innerHTML = `
+                        <div class="form-group">
+                            <label for="memberName">Member Name</label>
+                            <input type="text" class="form-control" name="memberName" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberCMSID">Member CMSID</label>
+                            <input type="text" class="form-control" name="memberCMSID" placeholder="CMSID">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger btn-sm remove-member">Remove</button>
+                        </div>
+                    `;
+
+        // Append the new member div to the #members container
+        document.getElementById('members').appendChild(memberDiv);
+
+        // Add event listener to the remove button
+        var removeButton = memberDiv.querySelector('.remove-member');
+        removeButton.addEventListener('click', function () {
+            memberDiv.remove();
+        });
+    });
+
+    document.getElementById('groupForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Collect data from form fields
+        var formData = new FormData(this);
+
+        // Collect member data and store it as a dictionary
+        var memberNameInputs = document.getElementsByName('memberName');
+        var memberCMSIDInputs = document.getElementsByName('memberCMSID');
+
+        for (var i = 0; i < memberNameInputs.length; i++) {
+            var memberName = memberNameInputs[i].value;
+            var memberCMSID = memberCMSIDInputs[i].value;
+            memberData.push({ memberName: memberName, memberCMSID: memberCMSID });
+        }
+
+        // Add the member data to formData as a JSON string
+        formData.append('memberData', JSON.stringify(memberData));
+
+        // Send the form data to the controller using AJAX
+        fetch('/Group/AddGroup', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Handle success, e.g., display a success message or redirect
+                    console.log(formData);
+                } else {
+                    // Handle errors, e.g., display an error message
+                }
+            })
+            .catch(error => {
+                // Handle network or other errors
+            });
+    });
+</script>
+

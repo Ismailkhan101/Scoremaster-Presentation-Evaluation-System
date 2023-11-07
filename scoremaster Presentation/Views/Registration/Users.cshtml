@@ -1,0 +1,43 @@
+﻿@model IEnumerable<scoremaster_Presentation.Models.UsersRegistration>
+<div class="card card border-dark">
+    <div class="card-header btn btn-primary border border-warning rounded form-select">
+        <h2 class="text-center text-white">Examiners</h2>
+    </div>
+    <div class="card-body" >
+        <div class="table-responsive">
+            <table class="table" id="example">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Password</th>
+                       <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.Name</th>
+                            <td>@item.Email</td>
+                            <td>@item.Contact</td>
+                            <td>@item.Password</td>
+                            <td style="color:white;margin-right:30px;"><a class="btn btn-primary btn-rounded m-b-10 m-l-5">Update</a></td>
+                        </tr>
+                    }
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+   
+</script>
+
+
+
+
+
+

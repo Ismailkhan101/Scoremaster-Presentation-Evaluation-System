@@ -1,0 +1,74 @@
+﻿@model scoremaster_Presentation.Models.Event
+<div class="card card border-dark">
+    <div class="card-header btn btn-primary border border-warning rounded">
+       Event Creation
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <form asp-action="EventCreate" method="post">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Presentation For...</label>
+                            <input type="text" class="form-control" placeholder="Enter Presentation For..." asp-for="EventName" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select asp-for="DepartmentId" class="form-control group-select form-select" required asp-items="@(new SelectList(ViewBag.DeptList,"DepartmentId","DeptName"))">
+                                <option value="">Select Department</option>
+
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Year</label>
+                            <input type="text" class="form-control"  placeholder="Enter year" required asp-for="Year">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Organizer</label>
+                            <input type="text" class="form-control" asp-for="Organizer" required placeholder="Organizer">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >Group/Individual</label>
+                            <select class="form-control group-select form-select" required asp-for="GroupIndividual">
+                                <option value="">Select Department</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Group">Group</option>
+                            </select>
+                            <div class="invalid-feedback">Example invalid custom select feedback</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >No of groups</label>
+                            <input type="text" class="form-control" placeholder="No of groups" asp-for="NoOfGroups" value="@null">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label >No of Examiners</label>
+                            <input type="text" class="form-control" asp-for="NoOfExaminers" value="@null" required placeholder="No of examiners">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                <div class="form-group">
+                            <button type="submit" class="btn btn-primary form-control" style="margin-top:31px;">Save</button>
+                </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
