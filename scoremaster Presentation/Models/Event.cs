@@ -24,6 +24,8 @@ namespace scoremaster_Presentation.Models
         public bool IsActive { get; set; }
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
+        public int? RubricCreateId { get; set; }
+        public virtual RubricCreate RubricCreate { get; set; }
         public IList<Group> Groups { get; set; }
         public IList<ExternalUserscs>ExternalUsers { get; set; }
 

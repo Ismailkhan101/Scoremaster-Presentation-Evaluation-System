@@ -10,5 +10,7 @@ namespace scoremaster_Presentation.Models
         public DateTime Date { get; set; }
         public bool Isactive { get; set; }
         public bool IsDeleted { get; set; }
+        public IList<ProgramlearingOutcome>programlearingOutcomes{ get; set; }
+        public IList<Event> Events{ get; set; }
     }
 }

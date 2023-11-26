@@ -20,6 +20,10 @@ namespace scoremaster_Presentation.Data
         public DbSet<Roles> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserPermision> UserPermisions { get; set; }
+        public DbSet<RubricCreate> RubricCreates { get; set; }
+        public DbSet<ProgramlearingOutcome> ProgramlearingOutcomes { get; set; }
+        public DbSet<EvaluationCriteria> EvaluationCriteria { get; set; }
+        public DbSet<EvaluationLevels> EvaluationLevels { get; set; }
 
     }
 }
