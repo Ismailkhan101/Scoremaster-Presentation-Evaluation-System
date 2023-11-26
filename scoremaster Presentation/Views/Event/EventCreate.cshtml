@@ -4,7 +4,7 @@
        Event Creation
     </div>
     <div class="card-body">
-        <div class="container">
+        <div class="container" style="width:auto;background-color:#343957;">
             <form asp-action="EventCreate" method="post">
                 <div class="form-row">
                     <div class="col-md-6">
@@ -28,7 +28,15 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label >Year</label>
-                            <input type="text" class="form-control"  placeholder="Enter year" required asp-for="Year">
+                          @*   //<input type="text" class="form-control"  placeholder="Enter year" required asp-for="Year"> *@
+                            <select type="text" class="form-control group-select form-select" placeholder="Enter year" required asp-for="Year">
+                                <option value="">Select Year</option>
+                                <option>Fall 2023</option>
+                                <option>Spring 2024</option>
+                                <option>Fall 2024</option>
+                                <option>Spring 2025</option>
+                                <option>Fall 2025</option>
+                                </select>
                         </div>
                     </div>
                     <div class="col-md-6">
