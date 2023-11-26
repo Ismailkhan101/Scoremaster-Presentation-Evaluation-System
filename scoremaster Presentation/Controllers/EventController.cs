@@ -48,7 +48,7 @@ namespace scoremaster_Presentation.Controllers
         {
            
             var Groups = _context.Groups.ToList();
-            return View(Groups );
+            return View(Groups);
 
            
         }
