@@ -26,8 +26,9 @@ namespace scoremaster_Presentation.Controllers
 
         {
             ViewBag.DeptList = _context.Departments.ToList();
+            ViewBag.Rubrics = _context.RubricCreates.ToList();
 
-           Event Even = new Event();
+            Event Even = new Event();
             return View(Even);
           
         }

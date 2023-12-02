@@ -17,11 +17,14 @@ namespace scoremaster_Presentation.Models
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         public int? EventId { get; set; }
-        /*public int? ROleId { get; set; }
-        public virtual Role Role { get; set; }*/
+       
         public virtual Event Event { get; set; }
         public IList<Marks> Marks { get; set; }
-       
+        public int? ROleId { get; set; }
+        public virtual Roles Role { get; set; }
+        public int? RubricCreateId { get; set; }
+        public virtual RubricCreate RubricCreate { get; set; }
+
 
     }
 }

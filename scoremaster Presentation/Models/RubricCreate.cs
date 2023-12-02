@@ -12,5 +12,6 @@ namespace scoremaster_Presentation.Models
         public bool IsDeleted { get; set; }
         public IList<ProgramlearingOutcome>programlearingOutcomes{ get; set; }
         public IList<Event> Events{ get; set; }
+        public IList<ExternalUserscs> ExternalUserscs { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace scoremaster_Presentation.Controllers
         public IActionResult UserRegisterCreate()
         {
             ViewBag.DeptList=_context.Departments.ToList();
+            ViewBag.Role= _context.Roles.ToList();
 
             UsersRegistration UsersRegistration = new UsersRegistration();
             return View(UsersRegistration);

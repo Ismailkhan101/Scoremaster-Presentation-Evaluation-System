@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using scoremaster_Presentation.Data;
 
@@ -11,9 +12,10 @@ using scoremaster_Presentation.Data;
 namespace scoremaster_Presentation.Migrations
 {
     [DbContext(typeof(ScoreMasterDbContext))]
-    partial class ScoreMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231129033318_externalrole")]
+    partial class externalrole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,9 +208,6 @@ namespace scoremaster_Presentation.Migrations
                     b.Property<int?>("ROleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RubricCreateId")
-                        .HasColumnType("int");
-
                     b.HasKey("ExternalUserscsId");
 
                     b.HasIndex("DepartmentId");
@@ -216,8 +215,6 @@ namespace scoremaster_Presentation.Migrations
                     b.HasIndex("EventId");
 
                     b.HasIndex("ROleId");
-
-                    b.HasIndex("RubricCreateId");
 
                     b.ToTable("ExternalUserscs");
                 });
@@ -556,17 +553,11 @@ namespace scoremaster_Presentation.Migrations
                         .WithMany("ExternalUserscs")
                         .HasForeignKey("ROleId");
 
-                    b.HasOne("scoremaster_Presentation.Models.RubricCreate", "RubricCreate")
-                        .WithMany("ExternalUserscs")
-                        .HasForeignKey("RubricCreateId");
-
                     b.Navigation("Department");
 
                     b.Navigation("Event");
 
                     b.Navigation("Role");
-
-                    b.Navigation("RubricCreate");
                 });
 
             modelBuilder.Entity("scoremaster_Presentation.Models.Group", b =>
@@ -717,8 +708,6 @@ namespace scoremaster_Presentation.Migrations
             modelBuilder.Entity("scoremaster_Presentation.Models.RubricCreate", b =>
                 {
                     b.Navigation("Events");
-
-                    b.Navigation("ExternalUserscs");
 
                     b.Navigation("programlearingOutcomes");
                 });

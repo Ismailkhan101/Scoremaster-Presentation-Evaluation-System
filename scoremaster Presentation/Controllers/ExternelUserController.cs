@@ -25,7 +25,8 @@ namespace scoremaster_Presentation.Controllers
         public IActionResult ExternalUserCreate(int Id)
         {
             ViewBag.DeptList = _context.Departments.ToList();
-
+            ViewBag.Role = _context.Roles.ToList();
+            ViewBag.Rubrics = _context.RubricCreates.ToList();
             ExternalUserscs ExternalUser = new ExternalUserscs();
             ExternalUser.EventId = Id;
             return View(ExternalUser);

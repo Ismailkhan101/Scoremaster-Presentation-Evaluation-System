@@ -51,6 +51,26 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label>Role</label>
+                            <select asp-for="ROleId" class="form-control group-select form-select" required asp-items="@(new SelectList(ViewBag.Role,"ROleId","RoleName"))">
+                                <option value="">Select Role</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Rubric</label>
+                            <select asp-for="RubricCreateId" class="form-control group-select form-select" required asp-items="@(new SelectList( ViewBag.Rubrics,"RubricCreateId","RubricName"))">
+                                <option value="">Select Rubric</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary form-control" style="margin-top:31px;">Save</button>
                         </div>
                     </div>

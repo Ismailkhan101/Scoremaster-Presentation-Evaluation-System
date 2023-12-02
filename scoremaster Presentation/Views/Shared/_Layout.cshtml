@@ -56,9 +56,9 @@
                             <i class="ti-home"></i> Dashboard <span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span>
                         </a>
                         <ul>
-                            <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>External Users</a>
-                            <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Users</a>
-                            <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add User</a></li>
+                            <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>Examiner</a>
+                            <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Empolyee List</a>
+                            <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add Empolyee</a></li>
                         </ul>
                     </li>
 
@@ -96,10 +96,10 @@
                             }
                         </ul>
                     </li>
-                    <li><a href="../documentation/index.html"><i class="ti-file"></i> Generate Result</a></li>
+                    <li><a asp-controller="Result" asp-action="ResultGenerate"><i class="ti-file"></i> Generate Result</a></li>
 
 
-                    <li class="label">Role</li>
+                  @*   <li class="label">Role</li>
                     <li>
                         <a class="sidebar-sub-toggle">
                             <i class="ti-target"></i> Role<span class="sidebar-collapse-icon ti-angle-down"></span>
@@ -108,9 +108,9 @@
                             <li><a class="nav-menu-item" asp-controller="Role" asp-action="AddRole"><i class="ti-user"></i>Create Role</a>
                             <li>
                                 <a class="nav-menu-item" asp-controller="Role" asp-action="Roles"><i class="ti-user"></i>Roles</a>
-                                    @* <li><a class="nav-menu-item" asp-controller="Event" asp-action="JoinEvent"><i class="ti-user"></i> Join Event</a> *@
+                                    @* <li><a class="nav-menu-item" asp-controller="Event" asp-action="JoinEvent"><i class="ti-user"></i> Join Event</a> 
                         </ul>
-                    </li>
+                    </li> *@
                     <li><a class="nav-menu-item" asp-controller="Login" asp-action="LoginPage"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>
