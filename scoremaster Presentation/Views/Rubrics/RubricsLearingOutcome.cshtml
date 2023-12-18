@@ -1,0 +1,110 @@
+﻿@model scoremaster_Presentation.ViewModel.RubricsVM
+
+<div class="card card border-dark">
+    <div class="card-header btn btn-primary border border-warning rounded">
+        Add Rubrics Details
+    </div>
+    <div class="card-body">
+        <div class="container" style="width:auto;background-color:#343957;">
+            <form asp-action="RubricsLearingOutcome" method="post">
+                <input type="text" hidden class="form-control" value="@ViewBag.Id" name="RubricId">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Plo</label>
+                            <input type="text" class="form-control" placeholder="Enter Name" asp-for="ProgramlearingOutcomes.Name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label></label>
+                            <button type="button" class="btn btn-primary form-control" style="margin-top:10px;" onclick="addAndRemoveCriteria()">Evaluation Criteria</button>
+                        </div>
+                    </div>
+
+                    <div class="form-row" id="Criteria">
+                        <!-- Criteria fields will be dynamically added here -->
+                    </div>
+                  
+                    <button type="submit" class="btn btn-primary form-control" style="margin-top:31px;">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    var count = 0;
+    var levels = 0;
+    function addAndRemoveCriteria() {
+
+
+        var criteriaSet = `
+                <div class="criteria-set form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Name" name="EvaluationCriteria[${count}].Name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Total Marks</label>
+                            <input type="text" class="form-control" placeholder="Enter Total Marks" name="EvaluationCriteria[${count}].TotalMarks" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <input type="text" class="form-control" placeholder="Enter Type" name="EvaluationCriteria[${count}].Type" required>
+                        </div>
+                    </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                        <label>Poor</label>
+                                                                <input type="text" class="form-control" placeholder="Enter Name" name="EvaluationLevels[${count}].Poor" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                        <label>Below Averae</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Total Marks" name="EvaluationLevels[${count}].BelowAverae" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                        <label>Above Averae</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Type" name="EvaluationLevels[${count}].AboveAverae" required>
+                                </div>
+                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                          <label>Excellent</label>
+                                                                    <input type="text" class="form-control" placeholder="Enter Type" name="EvaluationLevels[${count}].Excellent" required>
+                                    </div>
+                                </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger form-control" style="margin-top:30px;" onclick="removeCriteria(this)">Remove</button>
+                    </div>
+                </div>
+            `;
+        console.log(criteriaSet);
+        $("#Criteria").append(criteriaSet);
+        // Increment count for the next criteria set
+        count++;
+    }
+
+
+
+    function removeCriteria(button) {
+        $(button).closest('.criteria-set').remove();
+    }
+
+
+
+
+    
+</script>

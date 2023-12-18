@@ -1,0 +1,30 @@
+﻿@model scoremaster_Presentation.Models.RubricCreate
+<div class="card card border-dark">
+    <div class="card-header btn btn-primary border border-warning rounded">
+        Rubric Creation
+    </div>
+    <div class="card-body">
+        <div class="container" style="width:auto;background-color:#343957;">
+            <form asp-action="RubricsCreate" method="post">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Rubric Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Name" asp-for="RubricName" required>
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary form-control" style="margin-top:31px;">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</div>
