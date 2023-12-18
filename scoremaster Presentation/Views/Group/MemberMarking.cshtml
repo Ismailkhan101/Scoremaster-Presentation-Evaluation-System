@@ -1,0 +1,87 @@
+﻿@model scoremaster_Presentation.ViewModel.RubricDesignVm
+@{
+    int i = 0;
+}
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" style="border: 1px solid black;">
+                    <thead>
+                        <tr style="background-color:lightgray;">
+                            <th>Project Title</th>
+                            <th>CMSID</th>
+                            <th>Group Member Names</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Members)
+                        {
+                            <tr>
+                                @if (item == Model.Members.First()) // Display title only in the first row
+                                {
+                                    <td rowspan="@Model.Members.Count"><label style="margin-top:30px;">@Model.Group.Title</label> </td>
+                                }
+                                <td>@item.MemberCMSID</td>
+                                <td>@item.MemberName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered border-2" style="border: 1px solid black;">
+                    <thead>
+                        <tr style="background-color: lightgray;">
+                            <th rowspan="2">Program </br> Learning </br> Outcome (PLO)</th>
+                            <th rowspan="2">Evaluation </br> Criteria</th>
+                            <th>Poor</th>
+                            <th>Below </br>Average</th>
+                            <th>Above </br> Average</th>
+                            <th>Excellent</th>
+                            <th>Marks Obtained</th>
+                        </tr>
+                        <tr style="background-color: lightgray;">
+                            <th>25%</th>
+                            <th>50%</th>
+                            <th>75%</th>
+                            <th>100%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Rubric)
+                        {
+                            <tr>
+                                <td rowspan="2">@item.PlO</td>
+                                i++;
+                            </tr>
+                            <tr>
+                                <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]@item.PLOType</b></td>
+                                <td>@item.poor</td>
+                                <td>@item.BelowAverage</td>
+                                <td>@item.AboveAverage</td>
+                                <td>@item.Excellent</td>
+                                <td>
+                                    <form>
+                                        @foreach (var student in Model.MemberDatas)
+                                        {
+                                            <p>@student.MemberName <br> <input style="width:60px;" /></p>
+                                        }
+                                        <button class=" btn btn-success">Save</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> *@

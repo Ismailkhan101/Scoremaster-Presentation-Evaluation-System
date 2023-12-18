@@ -79,7 +79,7 @@ namespace scoremaster_Presentation.Controllers
                 _context.SaveChanges();
                 i++;
             }
-            return View();
+            return RedirectToAction("RubricsLearingOutcome", new {id = RubricId});
         }
     }
 }

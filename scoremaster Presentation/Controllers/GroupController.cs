@@ -3,9 +3,7 @@ using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
-using scoremaster_Presentation.Migrations;
-using Group = scoremaster_Presentation.Models.Group;
-using Marks = scoremaster_Presentation.Migrations.Marks;
+using scoremaster_Presentation.ViewModel;
 
 namespace scoremaster_Presentation.Controllers
 {
@@ -133,10 +131,13 @@ namespace scoremaster_Presentation.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("IndividualMember", new { Id = group.EventId });
         }
-        public IActionResult Memberlist(int Id)
+        [HttpGet]
+        public IActionResult MemberMarking(int Id)
         {
-            var Memebers = _context.MemberDatas.Where(x => x.GroupId == Id).ToList();
-            return View(Memebers);
+            RubricDesignVm Vm = new RubricDesignVm();
+            Vm.Group = _context.Groups.Where(x => x.GroupId == Id).FirstOrDefault();
+          Vm.Members = _context.MemberDatas.Where(x => x.GroupId == Id).ToList();
+            return View(Vm);
         }
        
         
