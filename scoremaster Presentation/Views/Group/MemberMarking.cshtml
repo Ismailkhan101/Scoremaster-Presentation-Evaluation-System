@@ -33,7 +33,7 @@
     </div>
 </div>
 
-@* <div class="col-lg-12">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -56,21 +56,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in ViewBag.Rubric)
+                        @foreach (var item in ViewBag.rubriclevel)
                         {
                             <tr>
                                 <td rowspan="2">@item.PlO</td>
                                 i++;
                             </tr>
                             <tr>
-                                <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]@item.PLOType</b></td>
+                                <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]<br>@item.PLOType</b></td>
                                 <td>@item.poor</td>
                                 <td>@item.BelowAverage</td>
                                 <td>@item.AboveAverage</td>
                                 <td>@item.Excellent</td>
                                 <td>
                                     <form>
-                                        @foreach (var student in Model.MemberDatas)
+                                        @foreach (var student in Model.Members)
                                         {
                                             <p>@student.MemberName <br> <input style="width:60px;" /></p>
                                         }
@@ -84,4 +84,4 @@
             </div>
         </div>
     </div>
-</div> *@
+</div>

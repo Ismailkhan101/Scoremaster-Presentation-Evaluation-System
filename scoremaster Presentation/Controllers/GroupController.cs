@@ -132,11 +132,31 @@ namespace scoremaster_Presentation.Controllers
             return RedirectToAction("IndividualMember", new { Id = group.EventId });
         }
         [HttpGet]
-        public IActionResult MemberMarking(int Id)
+        public async Task< IActionResult> MemberMarking(int Id)
         {
             RubricDesignVm Vm = new RubricDesignVm();
             Vm.Group = _context.Groups.Where(x => x.GroupId == Id).FirstOrDefault();
           Vm.Members = _context.MemberDatas.Where(x => x.GroupId == Id).ToList();
+            var event1=_context.Event.Where(x=>x.EventId== Vm.Group.EventId).FirstOrDefault();
+            ViewBag.rubriclevel =  await (from a in _context.RubricCreates
+                                                join b in _context.ProgramlearingOutcomes on a.RubricCreateId equals b.RubricCreateId into Programlearing
+                                          from Programlearings in Programlearing.DefaultIfEmpty()
+                                          join c in _context.EvaluationCriteria on Programlearings.ProgramlearingOutcomesId equals c.ProgramlearingOutcomesId into EvaluationCriteria
+                                          from EvaluationCriterias in EvaluationCriteria.DefaultIfEmpty()
+                                          join d in _context.EvaluationLevels on EvaluationCriterias.EvaluationCriteriaId equals d.EvaluationCriteriaId into EvaluationLevel
+                                          from EvaluationLevels in EvaluationLevel.DefaultIfEmpty()
+                                          where a.RubricCreateId == event1.RubricCreateId
+                                          select new RubricDesignVm
+                                          {
+                                              PlO = Programlearings.Name,
+                                              PloDescription = EvaluationCriterias.Name,
+                                              PloMarks =Convert.ToInt32( EvaluationCriterias.TotalMarks),
+                                              PLOType = EvaluationCriterias.Type,
+                                              poor= EvaluationLevels.Poor,
+                                              BelowAverage= EvaluationLevels.BelowAverae,
+                                              AboveAverage= EvaluationLevels.AboveAverae,
+                                              Excellent = EvaluationLevels.Excellent
+                                          }).Distinct().ToListAsync();
             return View(Vm);
         }
        
