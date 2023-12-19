@@ -16,5 +16,6 @@ namespace scoremaster_Presentation.ViewModel
         public string Excellent { get; set; }
         public Group Group { get; set; }
         public List<MemberData> Members { get; set; }
+        public List<Marks> Marks { get; set; }
     }
 }

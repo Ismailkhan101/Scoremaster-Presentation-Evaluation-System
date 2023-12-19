@@ -28,6 +28,7 @@ namespace scoremaster_Presentation.Models
         public virtual RubricCreate RubricCreate { get; set; }
         public IList<Group> Groups { get; set; }
         public IList<ExternalUserscs>ExternalUsers { get; set; }
+        public IList<Marks> Marks { get; set; }
 
     }
 }

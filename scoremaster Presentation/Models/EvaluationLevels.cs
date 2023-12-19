@@ -14,6 +14,7 @@ namespace scoremaster_Presentation.Models
         public bool IsDeleted { get; set; }
         public int? EvaluationCriteriaId { get; set; }
         public virtual EvaluationCriteria EvaluationCriterias{ get; set; }
+        public IList<Marks> Marks { get; set; }
 
     }
 }
