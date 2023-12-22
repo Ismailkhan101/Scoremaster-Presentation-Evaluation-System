@@ -1,6 +1,7 @@
 ﻿@model scoremaster_Presentation.ViewModel.RubricDesignVm
 @{
     int i = 0;
+    //var p = 0;
 }
 <div class="col-lg-12">
     <div class="card">
@@ -37,7 +38,8 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                 <form>
+               
+                    
                 <table class="table table-bordered border-2" style="border: 1px solid black;">
                     <thead>
                         <tr style="background-color: lightgray;">
@@ -59,10 +61,12 @@
                     <tbody>
                         
                         @foreach (var item in ViewBag.rubriclevel)
-                        {
+                            {
+                            var p = 0;
+                            int k = 0;
                             <tr>
                                 <td rowspan="2">@item.PlO</td>
-                                i++;
+                               
                             </tr>
                             <tr>
                                 <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]<br>@item.PLOType</b></td>
@@ -71,19 +75,42 @@
                                 <td>@item.AboveAverage</td>
                                 <td>@item.Excellent</td>
                                 <td>
-                                   
+                                   <form asp-action="MemberMarking" method="post">
                                         @foreach (var student in Model.Members)
                                         {
-                                            <p>@student.MemberName <br> <input style="width:60px;" /></p>
+                                            <input hidden value="@ViewBag.id" name="Groupid" />
+                                            <input style="width:60px;" asp-fo asp-for="Marks[p].EventId" value="@ViewBag.eventid" hidden />
+                                            <input style="width:60px;" asp-for="Marks[p].EvaluationLevelId" value="@item.EvaluationLevelId" hidden />
+                                            <input style="width:60px;" asp-for="Marks[p].UsersRegistrationId" value="@ViewBag.UserId" hidden />
+                                            <input style="width:60px;" asp-for="Marks[p].MemberDataId" value="@student.MemberDataId" hidden />
+                                            
+                                               
+                                                
+                                                    if (ViewBag.markslist[p].EvaluationLevelId == item.EvaluationLevelId && student.MemberDataId == ViewBag.markslist[p].MemberDataId && ViewBag.eventid == ViewBag.markslist[p].EventId && ViewBag.UserId == ViewBag.markslist[p].UsersRegistrationId)
+                                                    {
+
+                                                    <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@ViewBag.markslist[p].TotalMarks" /></p>
+                                                    }
+                                                    else
+                                                    {
+                                                    
+                                                        <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
+                                                    }
+                                              
+                                            
+                                         
+                                            p++;
+                                       
                                         }
                                         <button class=" btn btn-success">Save</button>
-                                   
+                                    </form>
                                 </td>
                             </tr>
+                           
                         }
                     </tbody>
                 </table>
-                </form>
+               
             </div>
         </div>
     </div>

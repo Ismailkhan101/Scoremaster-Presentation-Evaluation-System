@@ -14,6 +14,8 @@ namespace scoremaster_Presentation.ViewModel
         public string BelowAverage { get; set; }
         public string AboveAverage { get; set; }
         public string Excellent { get; set; }
+        public int EvaluationLevelId { get; set; }
+
         public Group Group { get; set; }
         public List<MemberData> Members { get; set; }
         public List<Marks> Marks { get; set; }
