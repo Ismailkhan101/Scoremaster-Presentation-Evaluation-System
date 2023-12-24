@@ -4,6 +4,31 @@
    
     //var p = 0;
 }
+<style>
+    td {
+        position: relative;
+        height: 120px;
+    }
+
+    .bottom-cell {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #ccc; 
+        box-sizing: border-box;
+        padding: 5px;
+        text-align: center;
+    }
+
+    media only screen and (max-width: 600px) {
+        .bottom-cell {
+            position: static;
+            border-top: none;
+            padding-top: 5px;
+            text-align: center;
+        }
+    }
+</style>
 @if (Model !=null)
 {
     <div class="col-lg-12">
@@ -24,7 +49,7 @@
                                 <tr>
                                     @if (item == Model.Members.First()) // Display title only in the first row
                                     {
-                                        <td rowspan="@Model.Members.Count"><label style="margin-top:30px;">@Model.Group.Title</label> </td>
+                                        <td rowspan="@Model.Members.Count" ><label style="margin-top:30px;">@Model.Group.Title</label> </td>
                                     }
                                     <td>@item.MemberCMSID</td>
                                     <td>@item.MemberName</td>
@@ -71,8 +96,8 @@
                             int k = 0;
                             decimal cridation = item.PloMarks;
                             decimal poorle = cridation / 4;
-                            decimal BelowAverage = cridation / 3;
-                            decimal AboveAverage = cridation / 2;
+                            decimal BelowAverage = cridation / 2;
+                            decimal AboveAverage = BelowAverage + poorle;
                             decimal Excellent = cridation;
 
                             <tr>
@@ -81,11 +106,27 @@
                             </tr>
                             <tr>
                                 <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]<br>@item.PLOType</b></td>
-                                <td>@item.poor <br /><p>_________<p>@poorle</p></td>
-                                <td>@item.BelowAverage <br /><p>_________<p>@BelowAverage</p</td>
-                                <td>@item.AboveAverage <br /><p>_________<p>@AboveAverage = cridation / 3;
-                            decimal AboveAverage</p</td>
-                                <td>@item.Excellent <br /><p>_________<p>@Excellent</p</td>
+
+                                <td style="position: relative;">
+                                    @item.poor
+                                    <br><br>
+                                    <div class="bottom-cell" style="margin-top:40px;">@poorle</div>
+                                </td>
+                                <td style="position: relative;">
+                                    @item.BelowAverage
+                                    <br><br>
+                                    <div class="bottom-cell" style="margin-top:40px;">@BelowAverage</div>
+                                </td>
+                                <td style="position: relative;">
+                                    @item.AboveAverage<br><br>
+                                    <div class="bottom-cell">@AboveAverage</div>
+                                </td>
+                                <td style="position: relative;">
+                                    @item.Excellent<br><br>
+
+                                    <div class="bottom-cell">@Excellent</div>
+                                </td>
+                           
                                 <td>
                                    <form asp-action="MemberMarking" method="post">
                                         @foreach (var student in Model.Members)
@@ -107,12 +148,12 @@
                                             }
                                             if (mark != null)
                                             {
-                                                <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@mark" /></p>
+                                                <p style="margin-top:20px;">@student.MemberName <br><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@mark" /></p>
                                             }
                                             else
                                             {
 
-                                                <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
+                                                <p style="margin-top:20px;">@student.MemberName <br><br /><br /><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
                                             }
 
                                                
