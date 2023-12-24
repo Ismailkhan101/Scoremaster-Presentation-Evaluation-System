@@ -1,38 +1,43 @@
 ﻿@model scoremaster_Presentation.ViewModel.RubricDesignVm
 @{
     int i = 0;
+   
     //var p = 0;
 }
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" style="border: 1px solid black;">
-                    <thead>
-                        <tr style="background-color:lightgray;">
-                            <th>Project Title</th>
-                            <th>CMSID</th>
-                            <th>Group Member Names</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Members)
-                        {
-                            <tr>
-                                @if (item == Model.Members.First()) // Display title only in the first row
-                                {
-                                    <td rowspan="@Model.Members.Count"><label style="margin-top:30px;">@Model.Group.Title</label> </td>
-                                }
-                                <td>@item.MemberCMSID</td>
-                                <td>@item.MemberName</td>
+@if (Model !=null)
+{
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" style="border: 1px solid black;">
+                        <thead>
+                            <tr style="background-color:lightgray;">
+                                <th>Project Title</th>
+                                <th>CMSID</th>
+                                <th>Group Member Names</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Members)
+                            {
+                                <tr>
+                                    @if (item == Model.Members.First()) // Display title only in the first row
+                                    {
+                                        <td rowspan="@Model.Members.Count"><label style="margin-top:30px;">@Model.Group.Title</label> </td>
+                                    }
+                                    <td>@item.MemberCMSID</td>
+                                    <td>@item.MemberName</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+}
 
 <div class="col-lg-12">
     <div class="card">
@@ -64,16 +69,23 @@
                             {
                             var p = 0;
                             int k = 0;
+                            decimal cridation = item.PloMarks;
+                            decimal poorle = cridation / 4;
+                            decimal BelowAverage = cridation / 3;
+                            decimal AboveAverage = cridation / 2;
+                            decimal Excellent = cridation;
+
                             <tr>
                                 <td rowspan="2">@item.PlO</td>
                                
                             </tr>
                             <tr>
                                 <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]<br>@item.PLOType</b></td>
-                                <td>@item.poor</td>
-                                <td>@item.BelowAverage</td>
-                                <td>@item.AboveAverage</td>
-                                <td>@item.Excellent</td>
+                                <td>@item.poor <br /><p>_________<p>@poorle</p></td>
+                                <td>@item.BelowAverage <br /><p>_________<p>@BelowAverage</p</td>
+                                <td>@item.AboveAverage <br /><p>_________<p>@AboveAverage = cridation / 3;
+                            decimal AboveAverage</p</td>
+                                <td>@item.Excellent <br /><p>_________<p>@Excellent</p</td>
                                 <td>
                                    <form asp-action="MemberMarking" method="post">
                                         @foreach (var student in Model.Members)
@@ -83,24 +95,39 @@
                                             <input style="width:60px;" asp-for="Marks[p].EvaluationLevelId" value="@item.EvaluationLevelId" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].UsersRegistrationId" value="@ViewBag.UserId" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].MemberDataId" value="@student.MemberDataId" hidden />
-                                            
-                                               
-                                                
-                                                    if (ViewBag.markslist[p].EvaluationLevelId == item.EvaluationLevelId && student.MemberDataId == ViewBag.markslist[p].MemberDataId && ViewBag.eventid == ViewBag.markslist[p].EventId && ViewBag.UserId == ViewBag.markslist[p].UsersRegistrationId)
-                                                    {
-
-                                                    <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@ViewBag.markslist[p].TotalMarks" /></p>
-                                                    }
-                                                    else
-                                                    {
+                                            var mark = "";
+                                            foreach (var mark1 in ViewBag.markslist)
+                                            {
+                                                if (mark1.EvaluationLevelId == item.EvaluationLevelId && student.MemberDataId == mark1.MemberDataId && ViewBag.eventid == mark1.EventId && ViewBag.UserId == mark1.UsersRegistrationId)
+                                                {
+                                                    mark = mark1.TotalMarks;
                                                     
-                                                        <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
-                                                    }
-                                              
-                                            
-                                         
+                                                }
+                                                
+                                            }
+                                            if (mark != null)
+                                            {
+                                                <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@mark" /></p>
+                                            }
+                                            else
+                                            {
+
+                                                <p>@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
+                                            }
+
+                                               
+
+                                                   
+                                                   
+                                                  
+
+
+
                                             p++;
-                                       
+                                            
+                                        }
+                                        @{
+                                            
                                         }
                                         <button class=" btn btn-success">Save</button>
                                     </form>
