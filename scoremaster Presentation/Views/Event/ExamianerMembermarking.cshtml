@@ -1,7 +1,7 @@
 ﻿@model scoremaster_Presentation.ViewModel.RubricDesignVm
 @{
     int i = 0;
-   
+
     //var p = 0;
 }
 <style>
@@ -15,22 +15,25 @@
         bottom: 0;
         width: 100%;
         border-top: 1px solid #ccc;
-        border-top-right-radius:10px;
+        border-top-right-radius: 10px;
         box-sizing: border-box;
         padding: 5px;
         text-align: center;
     }
 
     media only screen and (max-width: 600px) {
-        .bottom-cell {
-            position: static;
-            border-top: none;
-            padding-top: 5px;
-             text-align: center;
-        }
+        .bottom-cell
+
+    {
+        position: static;
+        border-top: none;
+        padding-top: 5px;
+        text-align: center;
+    }
+
     }
 </style>
-@if (Model !=null)
+@if (Model != null)
 {
     <div class="col-lg-12">
         <div class="card">
@@ -50,7 +53,7 @@
                                 <tr>
                                     @if (item == Model.Members.First()) // Display title only in the first row
                                     {
-                                        <td rowspan="@Model.Members.Count" ><label style="margin-top:30px;">@Model.Group.Title</label> </td>
+                                        <td rowspan="@Model.Members.Count"><label style="margin-top:30px;">@Model.Group.Title</label> </td>
                                     }
                                     <td>@item.MemberCMSID</td>
                                     <td>@item.MemberName</td>
@@ -69,8 +72,8 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-               
-                    
+
+
                 <table class="table table-bordered border-2" style="border: 1px solid black;">
                     <thead>
                         <tr style="background-color: lightgray;">
@@ -90,9 +93,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         @foreach (var item in ViewBag.rubriclevel)
-                            {
+                        {
                             var p = 0;
                             int k = 0;
                             decimal cridation = item.PloMarks;
@@ -103,7 +106,7 @@
 
                             <tr>
                                 <td rowspan="2">@item.PlO</td>
-                               
+
                             </tr>
                             <tr>
                                 <td>@item.PloDescription <b> <br />[@item.PloMarks Marks]<br>@item.PLOType</b></td>
@@ -127,63 +130,63 @@
 
                                     <div class="bottom-cell">@Excellent</div>
                                 </td>
-                           
+
                                 <td>
-                                   <form asp-action="MemberMarking" method="post">
+                                    <form asp-action="ExamianerMembermarking" method="post">
                                         @foreach (var student in Model.Members)
                                         {
                                             <input id="PloMarks" class="plo-marks" value="@item.PloMarks" type="hidden">
-                                            
+
                                             <input hidden value="@ViewBag.id" name="Groupid" />
                                             <input style="width:60px;" asp-fo asp-for="Marks[p].EventId" value="@ViewBag.eventid" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].EvaluationLevelId" value="@item.EvaluationLevelId" id="ev" hidden />
-                                            <input style="width:60px;" asp-for="Marks[p].UsersRegistrationId" value="@ViewBag.UserId" hidden />
+                                            <input style="width:60px;" asp-for="Marks[p].ExternalUserscsId" value="@ViewBag.UserId" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].MemberDataId" value="@student.MemberDataId" hidden />
                                             var mark = "";
                                             foreach (var mark1 in ViewBag.markslist)
                                             {
-                                                if (mark1.EvaluationLevelId == item.EvaluationLevelId && student.MemberDataId == mark1.MemberDataId && ViewBag.eventid == mark1.EventId && ViewBag.UserId == mark1.UsersRegistrationId)
+                                                if (mark1.EvaluationLevelId == item.EvaluationLevelId && student.MemberDataId == mark1.MemberDataId && ViewBag.eventid == mark1.EventId && ViewBag.UserId == mark1.ExternalUserscsId)
                                                 {
                                                     mark = mark1.TotalMarks;
-                                                    
+
                                                 }
-                                                
+
                                             }
                                             if (mark != null)
                                             {
-                                                <p style="margin-top:20px;">@student.MemberName <br><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" class="marks-input" value="@mark" /></p>
+                                                <p style="margin-top:2px;">@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" class="marks-input" value="@mark" /></p>
                                                 <div class="error-message text-danger"></div>
                                             }
                                             else
                                             {
                                                 <div class="error-message text-danger"></div>
-                                                <p style="margin-top:20px;">@student.MemberName <br><br /><br /><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" id="marks" value="0" /></p>
+                                                <p style="margin-top:2px;">@student.MemberName <br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" id="marks" value="0" /></p>
                                             }
 
-                                               
 
-                                                   
-                                                   
-                                                  
+
+
+
+
 
 
 
                                             p++;
-                                            
+
                                         }
                                         @{
-                                            
+
                                         }
                                         <button class=" btn btn-success" id="save">Save</button>
                                     </form>
                                 </td>
                             </tr>
-                           
+
                         }
-                    
+
                     </tbody>
                 </table>
-               
+
             </div>
         </div>
     </div>
