@@ -31,7 +31,15 @@ namespace scoremaster_Presentation.Controllers
             var user = User.FindFirst(ClaimTypes.Sid)?.Value;
             int uIdint = Convert.ToInt32(user);
             var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
-            ViewBag.UserName = emp?.Name;
+            var exam = _context.ExternalUserscs.Where(x => x.ExternalUserscsId == uIdint).FirstOrDefault();
+            if (emp != null) {
+                ViewBag.UserName = emp?.Name;
+            }
+            else
+            {
+                ViewBag.UserName = exam?.Name;
+            }
+           
             return View();
         }
 

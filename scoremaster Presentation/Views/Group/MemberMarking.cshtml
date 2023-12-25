@@ -14,7 +14,8 @@
         position: absolute;
         bottom: 0;
         width: 100%;
-        border-top: 1px solid #ccc; 
+        border-top: 1px solid #ccc;
+        border-top-right-radius:10px;
         box-sizing: border-box;
         padding: 5px;
         text-align: center;
@@ -131,9 +132,11 @@
                                    <form asp-action="MemberMarking" method="post">
                                         @foreach (var student in Model.Members)
                                         {
+                                            <input id="PloMarks" class="plo-marks" value="@item.PloMarks" type="hidden">
+                                            
                                             <input hidden value="@ViewBag.id" name="Groupid" />
                                             <input style="width:60px;" asp-fo asp-for="Marks[p].EventId" value="@ViewBag.eventid" hidden />
-                                            <input style="width:60px;" asp-for="Marks[p].EvaluationLevelId" value="@item.EvaluationLevelId" hidden />
+                                            <input style="width:60px;" asp-for="Marks[p].EvaluationLevelId" value="@item.EvaluationLevelId" id="ev" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].UsersRegistrationId" value="@ViewBag.UserId" hidden />
                                             <input style="width:60px;" asp-for="Marks[p].MemberDataId" value="@student.MemberDataId" hidden />
                                             var mark = "";
@@ -148,12 +151,13 @@
                                             }
                                             if (mark != null)
                                             {
-                                                <p style="margin-top:20px;">@student.MemberName <br><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" value="@mark" /></p>
+                                                <p style="margin-top:20px;">@student.MemberName <br><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" class="marks-input" value="@mark" /></p>
+                                                <div class="error-message text-danger"></div>
                                             }
                                             else
                                             {
-
-                                                <p style="margin-top:20px;">@student.MemberName <br><br /><br /><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" /></p>
+                                                <div class="error-message text-danger"></div>
+                                                <p style="margin-top:20px;">@student.MemberName <br><br /><br /><br> <input style="width:60px;" asp-for="Marks[p].TotalMarks" id="marks" value="0" /></p>
                                             }
 
                                                
@@ -170,12 +174,13 @@
                                         @{
                                             
                                         }
-                                        <button class=" btn btn-success">Save</button>
+                                        <button class=" btn btn-success" id="save">Save</button>
                                     </form>
                                 </td>
                             </tr>
                            
                         }
+                    
                     </tbody>
                 </table>
                
@@ -183,3 +188,39 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Add a click event listener to the Save button
+        $("#save").click(function (e) {
+            // Prevent the default form submission
+            e.preventDefault();
+
+            // Clear previous error messages
+            $(".error-message").text("");
+
+            // Loop through each row in the table
+            var isValid = true;
+
+            $(".marks-input").each(function () {
+                var marks = parseFloat($(this).val());
+                var PloMarks = parseFloat($(this).closest("tr").find(".plo-marks").val());
+
+                // Check if the entered marks are within the valid range
+                if (marks < 0 || marks > PloMarks) {
+                    // Display an error message
+                    $(this).addClass("is-invalid");
+                    $(this).closest("td").find(".error-message").text("Invalid marks. Please enter valid marks between 0 and " + PloMarks + ".");
+                    isValid = false;
+                } else {
+                    $(this).removeClass("is-invalid");
+                }
+            });
+
+            // If all validations pass, submit the form
+            if (isValid) {
+                $(this).closest("form").submit();
+            }
+        });
+    });
+</script>
