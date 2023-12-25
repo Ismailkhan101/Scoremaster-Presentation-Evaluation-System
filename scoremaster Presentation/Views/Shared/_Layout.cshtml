@@ -96,6 +96,21 @@
                             }
                         </ul>
                     </li>
+
+                    <li class="label"> Examiner Join Event</li>
+                    <li>
+                        <a class="sidebar-sub-toggle">
+                            <i class="ti-target"></i> Event<span class="sidebar-collapse-icon ti-angle-down"></span>
+                        </a>
+                        <ul>
+
+                            
+                            @if (User.HasClaim("Permission", "Event.ExamianerJoinEvent"))
+                            {
+                                <li><a class="nav-menu-item" asp-controller="Event" asp-action="ExamianerJoinEvent"><i class="ti-user"></i> Join Event</a></li>
+                            }
+                        </ul>
+                    </li>
                     <li class="label">Rubrics</li>
                     <li>
                         <a class="sidebar-sub-toggle">
@@ -116,7 +131,7 @@
                     <li><a asp-controller="Result" asp-action="ResultGenerate"><i class="ti-file"></i> Generate Result</a></li>
                    
 
-                  @*   <li class="label">Role</li>
+                    <li class="label">Role</li>
                     <li>
                         <a class="sidebar-sub-toggle">
                             <i class="ti-target"></i> Role<span class="sidebar-collapse-icon ti-angle-down"></span>
@@ -125,9 +140,9 @@
                             <li><a class="nav-menu-item" asp-controller="Role" asp-action="AddRole"><i class="ti-user"></i>Create Role</a>
                             <li>
                                 <a class="nav-menu-item" asp-controller="Role" asp-action="Roles"><i class="ti-user"></i>Roles</a>
-                                    @* <li><a class="nav-menu-item" asp-controller="Event" asp-action="JoinEvent"><i class="ti-user"></i> Join Event</a> 
+                                    
                         </ul>
-                    </li> *@
+                    </li>
                     <li><a class="nav-menu-item" asp-controller="Login" asp-action="LoginPage"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>

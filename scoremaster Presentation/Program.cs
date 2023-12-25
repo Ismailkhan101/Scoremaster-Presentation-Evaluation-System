@@ -86,6 +86,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Users.Create", policy => policy.RequireClaim("Permission", "Users.Create"));
 
     options.AddPolicy("Event.Update", policy => policy.RequireClaim("Permission", "Event.Update"));
+    options.AddPolicy("Event.ExamianerJoinEvent", policy => policy.RequireClaim("Permission", "Event.ExamianerJoinEvent"));
 
     //options.AddPolicy("Department.List", policy => policy.RequireClaim("Permission", "Department.List"));
 

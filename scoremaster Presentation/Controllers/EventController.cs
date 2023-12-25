@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
+using System.Security.Claims;
 
 namespace scoremaster_Presentation.Controllers
 {
@@ -52,6 +53,19 @@ namespace scoremaster_Presentation.Controllers
             return View(Groups );
 
            
+        }
+
+        [HttpGet]
+        public IActionResult ExamianerJoinEvent(int Id)
+        {
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var exam = _context.ExternalUserscs.Where(x => x.ExternalUserscsId == uIdint).FirstOrDefault();
+
+            var Groups = _context.Groups.Where(x=>x.EventId== exam.EventId).ToList();
+            return View(Groups);
+
+
         }
     }
 }
