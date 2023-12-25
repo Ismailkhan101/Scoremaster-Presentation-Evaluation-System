@@ -49,8 +49,10 @@ namespace scoremaster_Presentation.Controllers
         [HttpGet]
         public IActionResult JoinEvent(int Id)
         {
-           
-            var Groups = _context.Groups.ToList();
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var empolyee =_context.UsersRegistrations.Where(x=>x.UsersRegistrationId == uIdint).FirstOrDefault();
+            var Groups = _context.Groups.Where(x=>x.UsersRegistrationId== empolyee.UsersRegistrationId && x.IsActive==true).ToList();
             return View(Groups );
 
            
