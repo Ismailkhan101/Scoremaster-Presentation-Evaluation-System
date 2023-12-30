@@ -34,6 +34,17 @@
                                 <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId">Individual</a>
                                 <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId">Group</a>
                                 <a class="btn btn-secondary btn-sm" asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId">External Examiner</a>
+                                @if (item.IsActive == true)
+                                {
+                                    <a class="btn btn-success btn-sm" asp-controller="Event" asp-action="Eventactive" asp-route-id="@item.EventId">Active</a>
+                                    
+                                }else
+                                {
+
+                                    <a class="btn btn-secondary btn-sm" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId">Inactive</a>
+                                }
+
+                                <a class="btn btn-secondary btn-sm" asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">Result</a>
                             </td>
                         </tr>
                     }

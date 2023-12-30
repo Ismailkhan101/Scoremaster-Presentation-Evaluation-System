@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
 using scoremaster_Presentation.ViewModel;
+using System.Diagnostics.Metrics;
 using System.Security.Claims;
 
 namespace scoremaster_Presentation.Controllers
@@ -19,10 +20,51 @@ namespace scoremaster_Presentation.Controllers
         }
         public IActionResult EventList()
         {
-           var Event =_context.Event.ToList();
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+            
+            var Event =_context.Event.Where(x=>x.DepartmentId==emp.DepartmentId).ToList();
             return View(Event);
+            }
+        public async Task< IActionResult> Eventactive(int id)
+        {
+            var Event = _context.Event.Where(x => x.EventId== id && x.IsActive==true).FirstOrDefault();
+            Event.IsActive = false;
+            _context.Event.Attach(Event);
+            _context.Entry(Event).State = EntityState.Modified;
+          
+            var group = _context.Groups.Where(x => x.EventId == id).ToList();
+            foreach (var item in group)
+            {
+                item.IsActive = false;
+                _context.Groups.Attach(item);
+                _context.Entry(item).State = EntityState.Modified;
+              await  _context.SaveChangesAsync();
+            }
+          await  _context.SaveChangesAsync();
+            return RedirectToAction("EventList");
         }
-      //  [Authorize(Policy = "Event.Create")]
+        public async Task< IActionResult> EventInactive(int id)
+        {
+            var Event = _context.Event.Where(x => x.EventId == id && x.IsActive == false).FirstOrDefault();
+            Event.IsActive = true;
+            _context.Event.Attach(Event);
+            _context.Entry(Event).State = EntityState.Modified;
+          
+            var group=_context.Groups.Where(x=>x.EventId== id && x.IsActive==false).ToList();
+            foreach (var item in group)
+            {
+                item.IsActive = true;
+                _context.Groups.Attach(item);
+                _context.Entry(item).State = EntityState.Modified;
+               await _context.SaveChangesAsync();
+            }
+
+          await  _context.SaveChangesAsync();
+            return RedirectToAction("EventList");
+        }
+        //  [Authorize(Policy = "Event.Create")]
         [HttpGet]
         public IActionResult EventCreate()
 
@@ -146,5 +188,12 @@ namespace scoremaster_Presentation.Controllers
             }
             return RedirectToAction("ExamianerMembermarking", new { Id = Groupid });
         }
+        [HttpGet]
+        public async Task<IActionResult> EventResult(int id)
+        {
+            return View();
+        }
+
+
     }
 }
