@@ -54,39 +54,20 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Department.List", policy => policy.RequireClaim("Permission", "Department.List"));
-
-    options.AddPolicy("Department.Create", policy => policy.RequireClaim("Permission","Department.Create"));
-
+    options.AddPolicy("Department.Create", policy => policy.RequireClaim("Permission", "Department.Create"));
     options.AddPolicy("Event.List", policy => policy.RequireClaim("Permission", "Event.List"));
-
     options.AddPolicy("Event.Create", policy => policy.RequireClaim("Permission", "Event.Create"));
-
+    options.AddPolicy("Event.Eventactive", policy => policy.RequireClaim("Permission", "Event.Eventactive"));
+    options.AddPolicy("Event.EventInactive", policy => policy.RequireClaim("Permission", "Event.EventInactive"));
     options.AddPolicy("Event.Join", policy => policy.RequireClaim("Permission", "Event.Join"));
+    options.AddPolicy("ExamianerJoinEvent", policy => policy.RequireClaim("Permission", "ExamianerJoinEvent"));
+    options.AddPolicy("ExamianerMembermarking", policy => policy.RequireClaim("Permission", "ExamianerMembermarking"));
+    options.AddPolicy("EventResult", policy => policy.RequireClaim("Permission", "EventResult"));
+    options.AddPolicy("ExternalUser", policy => policy.RequireClaim("Permission", "ExternalUser"));
+    options.AddPolicy("ExternalUserCreate", policy => policy.RequireClaim("Permission", "ExternalUserCreate"));
 
-    options.AddPolicy("ExternalUser.List", policy => policy.RequireClaim("Permission", "ExternalUser.List"));
 
-    options.AddPolicy("ExternalUser.Create", policy => policy.RequireClaim("Permission", "ExternalUser.Create"));
 
-    options.AddPolicy("Group.List", policy => policy.RequireClaim("Permission", "Group.List"));
-
-    options.AddPolicy("Group.Create", policy => policy.RequireClaim("Permission", "Group.Create"));
-
-    options.AddPolicy("IndividualMember.Create", policy => policy.RequireClaim("Permission", "IndividualMember.Create"));
-
-    options.AddPolicy("Member.List", policy => policy.RequireClaim("Permission", "Member.List"));
-
-    options.AddPolicy("Home.Index", policy => policy.RequireClaim("Permission", "Home.Index"));
-
-    options.AddPolicy("Mark.List", policy => policy.RequireClaim("Permission", "Mark.List"));
-
-    options.AddPolicy("Marks.Create", policy => policy.RequireClaim("Permission", "Marks.Create"));
-
-    options.AddPolicy("Users.List", policy => policy.RequireClaim("Permission", "Users.List"));
-
-    options.AddPolicy("Users.Create", policy => policy.RequireClaim("Permission", "Users.Create"));
-
-    options.AddPolicy("Event.Update", policy => policy.RequireClaim("Permission", "Event.Update"));
-    options.AddPolicy("Event.ExamianerJoinEvent", policy => policy.RequireClaim("Permission", "Event.ExamianerJoinEvent"));
 
     //options.AddPolicy("Department.List", policy => policy.RequireClaim("Permission", "Department.List"));
 

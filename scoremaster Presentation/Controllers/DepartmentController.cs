@@ -15,14 +15,14 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
-      //  [Authorize(Policy = "Department.List")]
+       [Authorize(Policy = "Department.List")]
         [HttpGet]
         public IActionResult DepartmentList()
         {
             List<Department> Department = _context.Departments.ToList();
             return View(Department);
         }
-     //   [Authorize(Policy = "Department.Create")]
+      [Authorize(Policy = "Department.Create")]
         [HttpGet]
         public IActionResult AddDepartment()
         {

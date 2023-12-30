@@ -18,6 +18,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "Event.List")]
         public IActionResult EventList()
         {
             var user = User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -27,6 +28,7 @@ namespace scoremaster_Presentation.Controllers
             var Event =_context.Event.Where(x=>x.DepartmentId==emp.DepartmentId).ToList();
             return View(Event);
             }
+        [Authorize(Policy = "Event.Eventactive")]
         public async Task< IActionResult> Eventactive(int id)
         {
             var Event = _context.Event.Where(x => x.EventId== id && x.IsActive==true).FirstOrDefault();
@@ -45,6 +47,7 @@ namespace scoremaster_Presentation.Controllers
           await  _context.SaveChangesAsync();
             return RedirectToAction("EventList");
         }
+        [Authorize(Policy = "Event.EventInactive")]
         public async Task< IActionResult> EventInactive(int id)
         {
             var Event = _context.Event.Where(x => x.EventId == id && x.IsActive == false).FirstOrDefault();
@@ -64,7 +67,7 @@ namespace scoremaster_Presentation.Controllers
           await  _context.SaveChangesAsync();
             return RedirectToAction("EventList");
         }
-        //  [Authorize(Policy = "Event.Create")]
+     [Authorize(Policy = "Event.Create")]
         [HttpGet]
         public IActionResult EventCreate()
 
@@ -87,8 +90,9 @@ namespace scoremaster_Presentation.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(EventList));
         }
-   //   //  [Authorize(Policy = "Event.Join")]
+ [Authorize(Policy = "Event.Join")]
         [HttpGet]
+    
         public IActionResult JoinEvent(int Id)
         {
             var user = User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -99,7 +103,7 @@ namespace scoremaster_Presentation.Controllers
 
            
         }
-
+        [Authorize(Policy = "ExamianerJoinEvent")]
         [HttpGet]
         public IActionResult ExamianerJoinEvent(int Id)
         {
@@ -112,7 +116,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
-
+        [Authorize(Policy = "ExamianerMembermarking")]
         public async Task< IActionResult> ExamianerMembermarking(int Id)
         {
             var user = User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -188,6 +192,7 @@ namespace scoremaster_Presentation.Controllers
             }
             return RedirectToAction("ExamianerMembermarking", new { Id = Groupid });
         }
+        [Authorize(Policy = "EventResult")]
         [HttpGet]
         public async Task<IActionResult> EventResult(int id)
         {

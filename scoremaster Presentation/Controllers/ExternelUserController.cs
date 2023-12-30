@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
@@ -14,6 +15,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "ExternalUser")]
         [HttpGet]
         public IActionResult ExternalUser()
         {
@@ -21,6 +23,7 @@ namespace scoremaster_Presentation.Controllers
 
             return View(ExUsers);
         }
+        [Authorize(Policy = "ExternalUserCreate")]
         [HttpGet]
         public IActionResult ExternalUserCreate(int Id)
         {
