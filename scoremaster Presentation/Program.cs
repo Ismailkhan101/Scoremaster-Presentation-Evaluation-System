@@ -60,11 +60,22 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Event.Eventactive", policy => policy.RequireClaim("Permission", "Event.Eventactive"));
     options.AddPolicy("Event.EventInactive", policy => policy.RequireClaim("Permission", "Event.EventInactive"));
     options.AddPolicy("Event.Join", policy => policy.RequireClaim("Permission", "Event.Join"));
-    options.AddPolicy("ExamianerJoinEvent", policy => policy.RequireClaim("Permission", "ExamianerJoinEvent"));
-    options.AddPolicy("ExamianerMembermarking", policy => policy.RequireClaim("Permission", "ExamianerMembermarking"));
-    options.AddPolicy("EventResult", policy => policy.RequireClaim("Permission", "EventResult"));
+    options.AddPolicy("Event.ExamianerJoinEvent", policy => policy.RequireClaim("Permission", "Event.ExamianerJoinEvent"));
+    options.AddPolicy("Event.ExamianerMembermarking", policy => policy.RequireClaim("Permission", "Event.ExamianerMembermarking"));
+    options.AddPolicy("Event.EventResult", policy => policy.RequireClaim("Permission", "Event.EventResult"));
     options.AddPolicy("ExternalUser", policy => policy.RequireClaim("Permission", "ExternalUser"));
     options.AddPolicy("ExternalUserCreate", policy => policy.RequireClaim("Permission", "ExternalUserCreate"));
+    options.AddPolicy("Group.GroupList", policy => policy.RequireClaim("Permission", "Group.GroupList"));
+    options.AddPolicy("Group.AddGroup", policy => policy.RequireClaim("Permission", "Group.AddGroup"));
+    options.AddPolicy("Group.IndividualMember", policy => policy.RequireClaim("Permission", "Group.IndividualMember"));
+    options.AddPolicy("Group.MemberMarking", policy => policy.RequireClaim("Permission", "Group.MemberMarking"));
+    options.AddPolicy("Users", policy => policy.RequireClaim("Permission", "Users"));
+    options.AddPolicy("UserRegisterCreate", policy => policy.RequireClaim("Permission", "UserRegisterCreate"));
+    options.AddPolicy("Roles", policy => policy.RequireClaim("Permission", "Roles"));
+    options.AddPolicy("AddRole", policy => policy.RequireClaim("Permission", "AddRole"));
+    options.AddPolicy("UpdateRole", policy => policy.RequireClaim("Permission", "UpdateRole"));
+    options.AddPolicy("Rubrics", policy => policy.RequireClaim("Permission", "Rubrics"));
+    options.AddPolicy("RubricsCreate", policy => policy.RequireClaim("Permission", "RubricsCreate"));
 
 
 

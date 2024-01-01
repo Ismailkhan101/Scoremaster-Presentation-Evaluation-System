@@ -41,10 +41,10 @@
                                 }else
                                 {
 
-                                    <a class="btn btn-secondary btn-sm" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId">Inactive</a>
+                                    <a class="btn btn-danger btn-sm" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId">Inactive</a>
                                 }
 
-                                <a class="btn btn-secondary btn-sm" asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">Result</a>
+                                <a class="btn btn-primary btn-sm" asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">Result</a>
                             </td>
                         </tr>
                     }

@@ -39,6 +39,7 @@
     <link href="~/css/focus/component.css" rel="stylesheet" />
    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+   
 </head>
 <body>
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
@@ -56,12 +57,16 @@
                             <i class="ti-home"></i> Users <span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span>
                         </a>
                         <ul>
-                            <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>Examiner</a>
+                            
+                                 <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>Examiner</a>
+                           
+                           
                             <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Empolyee List</a>
                             <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add Empolyee</a></li>
                         </ul>
                     </li>
-
+                    @if (User.HasClaim("Permission", "Department.List") || User.HasClaim("Permission", "Department.Create"))
+                    {
                     <li class="label">Department</li>
                     <li>
                         <a class="sidebar-sub-toggle">
@@ -72,8 +77,9 @@
                             <li><a class="nav-menu-item" asp-controller="Department" asp-action="AddDepartment"><i class="ti-user"></i>AddDepartment</a>
                         </ul>
                     </li>
-
-
+                    }
+                    @if (User.HasClaim("Permission", "Event.List") || User.HasClaim("Permission", "Event.Create") || User.HasClaim("Permission", "Event.Join"))
+                            {
                     <li class="label">Event</li>
                     <li>
                         <a class="sidebar-sub-toggle">
@@ -96,7 +102,9 @@
                             }
                         </ul>
                     </li>
-
+                    }
+                     @if (User.HasClaim("Permission", "Event.ExamianerJoinEvent"))
+                            {
                     <li class="label"> Examiner Join Event</li>
                     <li>
                         <a class="sidebar-sub-toggle">
@@ -105,44 +113,49 @@
                         <ul>
 
                             
-                            @if (User.HasClaim("Permission", "Event.ExamianerJoinEvent"))
-                            {
-                                <li><a class="nav-menu-item" asp-controller="Event" asp-action="ExamianerJoinEvent"><i class="ti-user"></i> Join Event</a></li>
-                            }
-                        </ul>
-                    </li>
-                    <li class="label">Rubrics</li>
-                    <li>
-                        <a class="sidebar-sub-toggle">
-                            <i class="ti-target"></i>Rubrics<span class="sidebar-collapse-icon ti-angle-down"></span>
-                        </a>
-                        <ul>
-
-
-                            <li><a class="nav-menu-item" asp-controller="Rubrics" asp-action="Rubrics"><i class="ti-user"></i>Rubrics</a></li>
-
-
-
-                            <li><a class="nav-menu-item" asp-controller="Rubrics" asp-action="RubricsCreate"><i class="ti-user"></i>Create Rubrics</a></li>
                            
-                            
+                                <li><a class="nav-menu-item" asp-controller="Event" asp-action="ExamianerJoinEvent"><i class="ti-user"></i> Join Event</a></li>
+                           
                         </ul>
                     </li>
-                    <li><a asp-controller="Result" asp-action="ResultGenerate"><i class="ti-file"></i> Generate Result</a></li>
-                   
+                    }
+                    @if (User.HasClaim("Permission", "Rubrics") || User.HasClaim("Permission", "RubricsCreate"))
+                    {
+                        <li class="label">Rubrics</li>
+                        <li>
+                            <a class="sidebar-sub-toggle">
+                                <i class="ti-target"></i>Rubrics<span class="sidebar-collapse-icon ti-angle-down"></span>
+                            </a>
+                            <ul>
 
-                    <li class="label">Role</li>
-                    <li>
-                        <a class="sidebar-sub-toggle">
-                            <i class="ti-target"></i> Role<span class="sidebar-collapse-icon ti-angle-down"></span>
-                        </a>
-                        <ul>
-                            <li><a class="nav-menu-item" asp-controller="Role" asp-action="AddRole"><i class="ti-user"></i>Create Role</a>
-                            <li>
-                                <a class="nav-menu-item" asp-controller="Role" asp-action="Roles"><i class="ti-user"></i>Roles</a>
-                                    
-                        </ul>
-                    </li>
+
+                                <li><a class="nav-menu-item" asp-controller="Rubrics" asp-action="Rubrics"><i class="ti-user"></i>Rubrics</a></li>
+
+
+
+                                <li><a class="nav-menu-item" asp-controller="Rubrics" asp-action="RubricsCreate"><i class="ti-user"></i>Create Rubrics</a></li>
+
+
+                            </ul>
+                        </li>
+                    }
+
+                    @* @if (User.HasClaim("Permission", "Roles") || User.HasClaim("Permission", "UpdateRole") || User.HasClaim("Permission", "AddRole"))
+                    { *@
+
+                        <li class="label">Role</li>
+                        <li>
+                            <a class="sidebar-sub-toggle">
+                                <i class="ti-target"></i> Role<span class="sidebar-collapse-icon ti-angle-down"></span>
+                            </a>
+                            <ul>
+                                <li><a class="nav-menu-item" asp-controller="Role" asp-action="AddRole"><i class="ti-user"></i>Create Role</a>
+                                    <li>
+                                        <a class="nav-menu-item" asp-controller="Role" asp-action="Roles"><i class="ti-user"></i>Roles</a>
+
+                            </ul>
+                        </li>
+                    }
                     <li><a class="nav-menu-item" asp-controller="Login" asp-action="LoginPage"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>
@@ -223,6 +236,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
-
+        [Authorize(Policy = "Roles")]
         [HttpGet]
         public async Task<IActionResult> Roles()
         {
@@ -39,6 +39,8 @@ namespace scoremaster_Presentation.Controllers
             }
             return View(roleVM);
         }
+
+        [Authorize(Policy = "AddRole")]
         [HttpGet]
         public async Task< IActionResult> AddRole()
         {
@@ -75,6 +77,7 @@ namespace scoremaster_Presentation.Controllers
         }
 
 
+        [Authorize(Policy = "UpdateRole")]
         [HttpGet]
         public async Task<IActionResult> UpdateRole(int id)
         {

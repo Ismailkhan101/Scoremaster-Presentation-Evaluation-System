@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
 using scoremaster_Presentation.ViewModel;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Security.Claims;
 
@@ -103,7 +104,7 @@ namespace scoremaster_Presentation.Controllers
 
            
         }
-        [Authorize(Policy = "ExamianerJoinEvent")]
+        [Authorize(Policy = "Event.ExamianerJoinEvent")]
         [HttpGet]
         public IActionResult ExamianerJoinEvent(int Id)
         {
@@ -116,7 +117,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
-        [Authorize(Policy = "ExamianerMembermarking")]
+        [Authorize(Policy = "Event.ExamianerMembermarking")]
         public async Task< IActionResult> ExamianerMembermarking(int Id)
         {
             var user = User.FindFirst(ClaimTypes.Sid)?.Value;
@@ -192,10 +193,39 @@ namespace scoremaster_Presentation.Controllers
             }
             return RedirectToAction("ExamianerMembermarking", new { Id = Groupid });
         }
-        [Authorize(Policy = "EventResult")]
+      //  [Authorize(Policy = "Event.EventResult")]
         [HttpGet]
         public async Task<IActionResult> EventResult(int id)
         {
+           
+
+            var marks = await (
+        from a in _context.Marks
+        join d in _context.MemberDatas on a.MemberDataId equals d.MemberDataId into MemberMarks
+        from Member in MemberMarks.DefaultIfEmpty()
+            where a.EventId == id
+        group new { Member, a } by new { a.MemberDataId, a.TotalMarks } into grouped
+        select new
+        {
+            MemberId = grouped.FirstOrDefault().a.MemberDataId,
+            Name = grouped.FirstOrDefault().Member.MemberName,
+            CMSId = grouped.FirstOrDefault().Member.MemberCMSID,
+            TotalMarks = grouped.FirstOrDefault().a.TotalMarks
+        }
+    )
+    .AsNoTracking() // Optional: Use AsNoTracking to improve performance if you don't plan to update the entities
+    .ToListAsync();
+
+
+           ViewBag.MemberResults= marks
+       .GroupBy(mark => mark.CMSId)
+       .Select(group => new
+       {
+           Name = group.First().Name,
+           CMSId = group.Key,
+           TotalMarksSum = group.Sum(mark =>Convert.ToDecimal( mark.TotalMarks))
+       })
+       .ToList();
             return View();
         }
 

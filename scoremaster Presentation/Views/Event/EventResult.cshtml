@@ -1,0 +1,79 @@
+﻿<style>
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: #04AA6D;
+            color: white;
+        }
+</style>
+
+<button id="downloadPdfBtn" style="color:black">Download PDF</button>
+<button id="downloadExcelBtn" style="color:black">Download Excel</button>
+
+<div style="width: 100%;">
+    <h1>A Fancy Table</h1>
+
+    <table id="customers">
+        <tr>
+            <th>#S-No</th>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Country</th>
+        </tr>
+        @if (ViewBag.MemberResults != null)
+        {
+            int i = 1;
+            @foreach (var item in ViewBag.MemberResults)
+            {
+                <tr>
+                    <td>@i</td> <!-- Serial number column -->
+                    <td>@item.Name</td>
+                    <td>@item.CMSId</td>
+                    <td>@item.TotalMarksSum</td>
+                </tr>
+                i++;
+            }
+        }
+    </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+<script>
+    document.getElementById('downloadPdfBtn').addEventListener('click', function () {
+        var pdfContent = document.getElementById('customers');
+        html2pdf(pdfContent)
+            .from(pdfContent)
+            .save('sample_File.pdf');
+    });
+
+    document.getElementById('downloadExcelBtn').addEventListener('click', function () {
+        var table = document.getElementById('customers');
+        var ws = XLSX.utils.table_to_sheet(table);
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, 'sample_File.xlsx');
+    });
+</script>

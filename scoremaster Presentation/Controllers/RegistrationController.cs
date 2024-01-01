@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
@@ -14,12 +15,15 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "Users")]
+        [HttpGet]
         public IActionResult Users()
         {
             var Users = _context.UsersRegistrations.Where(x=>x.IsDeleted==false).ToList();    
 
             return View(Users);
         }
+        [Authorize(Policy = "UserRegisterCreate")]
         [HttpGet]
         public IActionResult UserRegisterCreate()
         {
@@ -29,6 +33,7 @@ namespace scoremaster_Presentation.Controllers
             UsersRegistration UsersRegistration = new UsersRegistration();
             return View(UsersRegistration);
         }
+        [Authorize(Policy = "UserRegisterCreate")]
         [HttpPost]
         public IActionResult UserRegisterCreate(UsersRegistration UsersRegistrations)
         {

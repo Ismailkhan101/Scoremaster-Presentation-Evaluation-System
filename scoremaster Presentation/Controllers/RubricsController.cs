@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Migrations;
@@ -16,6 +17,7 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "Rubrics")]
         [HttpGet]
         public IActionResult Rubrics()
 
@@ -24,6 +26,7 @@ namespace scoremaster_Presentation.Controllers
             List<Models.RubricCreate> rubricCreates = _context.RubricCreates.ToList();
             return View(rubricCreates);
         }
+        [Authorize(Policy = "RubricsCreate")]
         [HttpGet]
         public IActionResult RubricsCreate()
 

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.ViewModel;
 using System.Security.Claims;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace scoremaster_Presentation.Controllers
 {
@@ -19,11 +19,15 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "Group.GroupList")]
+        [HttpGet]
+
         public IActionResult GroupList()
         {
            var Grouplist=_context.Groups.ToList();
             return View(Grouplist);
         }
+        [Authorize(Policy = "Group.AddGroup")]
         [HttpGet]
         public IActionResult AddGroup(int Id)
         {
@@ -94,7 +98,8 @@ namespace scoremaster_Presentation.Controllers
                 return RedirectToAction("IndividualMember", new { Id = Id });
             }
         }
-
+        [Authorize(Policy = "Group.IndividualMember")]
+        [HttpGet]
         public IActionResult IndividualMember(int Id)
         {
             ViewBag.Supervisor = _context.UsersRegistrations.ToList();
@@ -133,6 +138,7 @@ namespace scoremaster_Presentation.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("IndividualMember", new { Id = group.EventId });
         }
+        [Authorize(Policy = "Group.MemberMarking")]
         [HttpGet]
         public async Task< IActionResult> MemberMarking(int Id)
         {
