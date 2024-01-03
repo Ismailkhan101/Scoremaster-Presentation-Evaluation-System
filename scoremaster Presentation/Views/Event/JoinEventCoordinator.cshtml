@@ -1,49 +1,50 @@
 ﻿@model IEnumerable<scoremaster_Presentation.Models.Group>
-<style>
-    .card1 {
+@{
+    int i = 1;
+}
+<style> .card1 {
         background-color: blue;
+       
         width: 800px;
         height: 300px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         justify-content: center;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }</style>
-@{
-    int i = 1;
-}
 <div class="card card border-dark">
-    @if(Model.Count()!=0)
+    @if(Model.Count() != 0)
     {
         <div class="card-header btn btn-primary border border-warning rounded form-select">
-            Examiner  Joined Event
+            Joined Event
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table" id="example">
-                    <thead class="thead-dark">
+                    <thead style="background:#5499C7; color:white;">
                         <tr>
                             <th scope="col" style="color:white;">S/No</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Supervisor</th>
-                            <th scope="col">Co-Supervisor</th>
+                            <th scope="col" style="color:white;">Title</th>
+                            <th scope="col" style="color:white;">Supervisor</th>
+                            <th scope="col" style="color:white;">Co-Supervisor</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
+                           
                             <tr>
-                                <td>@i </td>
+                                <td>@i</td>
                                 <td>@item.Title </td>
                                 <td>@item.Supervisor</td>
                                 <td>@item.CoSupervisor</td>
-                                <td><a class="btn btn-primary m-b-10 m-l-5" asp-controller="Event" asp-action="ExamianerMembermarking" asp-route-id="@item.GroupId">Add Marks</a></td>
+                                <td><a class="btn btn-primary m-b-10 m-l-5" asp-controller="Group" asp-action="MemberMarking" asp-route-id="@item.GroupId">Add Marks</a></td>
                             </tr>
-i++;
+                            i++;
                         }
 
 
@@ -53,7 +54,13 @@ i++;
             </div>
         </div>
     }
-    
+    else
+    {
+        <div class="card1">
+            <h1 style="color:white;"> Groupa are not available for now!</h1>
+        </div>
+    }
+
 </div>
 
 

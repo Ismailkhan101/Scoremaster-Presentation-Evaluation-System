@@ -6,17 +6,17 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table" id="example">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Event</th>
+                <thead style="background:#5499C7; color:white;">
+                    <tr >
+                        <th scope="col" style="color:white;">Event</th>
                         
-                        <th scope="col">Co-ordinator</th>
-                        <th scope="col">Year</th>
-                        <th>Individual</th>
-                        <th scope="col">No Of Groups</th>
-                        <th scope="col">No Of Examiners</th>
-                        <th scope="col">Date</th>
-                        <th></th>
+                        <th scope="col" style="color:white;">Co-ordinator</th>
+                        <th scope="col" style="color:white;">Year</th>
+                        <th style="color:white;">Individual</th>
+                        <th style="color:white;" scope="col">Groups</th>
+                        <th style ="color:white;" scope="col">Examiners</th>
+                        <th style="color:white;" scope="col">Date</th>
+                        <th style="color:white; float:left;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,20 +31,31 @@
                             <td>@item.NoOfExaminers</td>
                             <td>@item.EventDate</td>
                             <td>
-                                <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId">Individual</a>
-                                <a type="button" class="btn btn-primary btn-sm " asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId">Group</a>
-                                <a class="btn btn-secondary btn-sm" asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId">External Examiner</a>
+                                <a type="button"  asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId"><i class="fas fa-user-slash fa-2x" style="color:green;"></i></a>
+                                <a type="button" asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId"><i class="fas fa-user-alt fa-2x" style="color:blue;"></i></a>
+                                <a asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId">
+                                    <i class="fas fa-eye fa-2x" style="color:black;"></i>
+
+                        </a>
                                 @if (item.IsActive == true)
                                 {
-                                    <a class="btn btn-success btn-sm" asp-controller="Event" asp-action="Eventactive" asp-route-id="@item.EventId">Active</a>
+                                    <a class="" asp-controller="Event" asp-action="Eventactive" asp-route-id="@item.EventId"><i class="fas fa-toggle-on fa-2x" style="color:green;"></i></a>
                                     
                                 }else
                                 {
 
-                                    <a class="btn btn-danger btn-sm" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId">Inactive</a>
-                                }
 
-                                <a class="btn btn-primary btn-sm" asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">Result</a>
+
+                                    <a class="" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId"> <i class="fas fa-toggle-off fa-2x" style="color:red;"></i></a>
+                                }
+                                <a asp-controller="Event" asp-action="JoinEventCoordinator" asp-route-id="@item.EventId">
+                                    <i class="far fa-lightbulb fa-2x" style="color:yellow;"></i>
+
+                                </a>
+                                <a asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">
+                                    <i class="fas fa-file-alt fa-2x" style="color:black;"></i>
+
+                        </a>
                             </td>
                         </tr>
                     }

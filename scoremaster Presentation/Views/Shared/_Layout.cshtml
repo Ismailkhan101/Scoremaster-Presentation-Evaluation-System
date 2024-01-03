@@ -39,7 +39,7 @@
     <link href="~/css/focus/component.css" rel="stylesheet" />
    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
@@ -51,20 +51,31 @@
                             <!-- <img src="images/logo.png" alt="" /> --><span>ScoreMaster</span>
                         </a>
                     </div>
-                    <li class="label">Main</li>
-                    <li>
-                        <a class="sidebar-sub-toggle">
-                            <i class="ti-home"></i> Users <span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span>
-                        </a>
-                        <ul>
-                            
-                                 <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>Examiner</a>
-                           
-                           
-                            <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Empolyee List</a>
-                            <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add Empolyee</a></li>
-                        </ul>
-                    </li>
+                    @if (User.HasClaim("Permission", "ExternalUser") || User.HasClaim("Permission", "Users") || User.HasClaim("Permission", "UserRegisterCreate"))
+                    {
+                        <li class="label">Main</li>
+                        <li>
+                            <a class="sidebar-sub-toggle">
+                                <i class="ti-home"></i> Users <span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span>
+                            </a>
+                            <ul>
+                                @if (User.HasClaim("Permission", "ExternalUser"))
+                                {
+                                    <li><a class="nav-menu-item" asp-controller="ExternelUser" asp-action="ExternalUser"><i class="ti-user"></i>Examiner</a></li>
+                                }
+                                @if (User.HasClaim("Permission", "Users"))
+                                {
+                                    <li><a class="nav-menu-item" asp-controller="Registration" asp-action="Users"><i class="ti-user"></i>Empolyee List</a> </li>
+
+                                }
+
+                                @if (User.HasClaim("Permission", "UserRegisterCreate"))
+                                {
+                                    <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add Empolyee</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
                     @if (User.HasClaim("Permission", "Department.List") || User.HasClaim("Permission", "Department.Create"))
                     {
                     <li class="label">Department</li>
@@ -140,8 +151,8 @@
                         </li>
                     }
 
-                    @* @if (User.HasClaim("Permission", "Roles") || User.HasClaim("Permission", "UpdateRole") || User.HasClaim("Permission", "AddRole"))
-                    { *@
+                    @if (User.HasClaim("Permission", "Roles") || User.HasClaim("Permission", "UpdateRole") || User.HasClaim("Permission", "AddRole"))
+                    {
 
                         <li class="label">Role</li>
                         <li>

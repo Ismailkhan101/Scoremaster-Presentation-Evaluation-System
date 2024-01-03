@@ -76,8 +76,9 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("UpdateRole", policy => policy.RequireClaim("Permission", "UpdateRole"));
     options.AddPolicy("Rubrics", policy => policy.RequireClaim("Permission", "Rubrics"));
     options.AddPolicy("RubricsCreate", policy => policy.RequireClaim("Permission", "RubricsCreate"));
+    options.AddPolicy("JoinEventCoordinator", policy => policy.RequireClaim("Permission", "JoinEventCoordinator"));
 
-
+    
 
 
     //options.AddPolicy("Department.List", policy => policy.RequireClaim("Permission", "Department.List"));

@@ -204,13 +204,13 @@ namespace scoremaster_Presentation.Controllers
         join d in _context.MemberDatas on a.MemberDataId equals d.MemberDataId into MemberMarks
         from Member in MemberMarks.DefaultIfEmpty()
             where a.EventId == id
-        group new { Member, a } by new { a.MemberDataId, a.TotalMarks } into grouped
+      //  group new { Member, a } by new { a.MemberDataId, a.TotalMarks } into grouped
         select new
         {
-            MemberId = grouped.FirstOrDefault().a.MemberDataId,
-            Name = grouped.FirstOrDefault().Member.MemberName,
-            CMSId = grouped.FirstOrDefault().Member.MemberCMSID,
-            TotalMarks = grouped.FirstOrDefault().a.TotalMarks
+            MemberId = a.MemberDataId,
+            Name = Member.MemberName,
+            CMSId = Member.MemberCMSID,
+            TotalMarks = a.TotalMarks
         }
     )
     .AsNoTracking() // Optional: Use AsNoTracking to improve performance if you don't plan to update the entities
@@ -229,6 +229,18 @@ namespace scoremaster_Presentation.Controllers
             return View();
         }
 
+        [Authorize(Policy = "JoinEventCoordinator")]
+        [HttpGet]
 
+        public IActionResult JoinEventCoordinator(int Id)
+        {
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var empolyee = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+            var Groups = _context.Groups.Where(x => x.EventId == Id && x.IsActive == true).ToList();
+            return View(Groups);
+
+
+        }
     }
 }
