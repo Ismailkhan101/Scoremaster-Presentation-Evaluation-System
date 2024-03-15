@@ -31,28 +31,31 @@
                             <td>@item.NoOfExaminers</td>
                             <td>@item.EventDate</td>
                             <td>
-                                <a type="button"  asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId"><i class="fas fa-user-slash fa-2x" style="color:green;"></i></a>
-                                <a type="button" asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId"><i class="fas fa-user-alt fa-2x" style="color:blue;"></i></a>
-                                <a asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId">
+                                <a type="button" asp-controller="Group" asp-action="IndividualMember" asp-route-id="@item.EventId" title="Add single member">
+                                    <i class="fas fa-user-slash fa-2x" style="color:green;"></i>
+                                </a>
+                                <a type="button" asp-controller="Group" asp-action="GroupDecision" asp-route-id="@item.EventId" title="Add members">
+                                    <i class="fas fa-user-alt fa-2x" style="color:blue;"></i></a>
+                                <a asp-controller="ExternelUser" asp-action="ExternalUserCreate" asp-route-id="@item.EventId" title="Add Examiners">
                                     <i class="fas fa-eye fa-2x" style="color:black;"></i>
 
                         </a>
                                 @if (item.IsActive == true)
                                 {
-                                    <a class="" asp-controller="Event" asp-action="Eventactive" asp-route-id="@item.EventId"><i class="fas fa-toggle-on fa-2x" style="color:green;"></i></a>
+                                    <a class="" asp-controller="Event" asp-action="Eventactive" asp-route-id="@item.EventId" title="Active"><i class="fas fa-toggle-on fa-2x" style="color:green;"></i></a>
                                     
                                 }else
                                 {
 
 
 
-                                    <a class="" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId"> <i class="fas fa-toggle-off fa-2x" style="color:red;"></i></a>
+                                    <a class="" asp-controller="Event" asp-action="EventInactive" asp-route-id="@item.EventId" title="Inactive"> <i class="fas fa-toggle-off fa-2x" style="color:red;"></i></a>
                                 }
-                                <a asp-controller="Event" asp-action="JoinEventCoordinator" asp-route-id="@item.EventId">
+                                <a asp-controller="Event" asp-action="JoinEventCoordinator" asp-route-id="@item.EventId" title="Join event">
                                     <i class="far fa-lightbulb fa-2x" style="color:yellow;"></i>
 
                                 </a>
-                                <a asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId">
+                                <a asp-controller="Event" asp-action="EventResult" asp-route-id="@item.EventId" title="Result">
                                     <i class="fas fa-file-alt fa-2x" style="color:black;"></i>
 
                         </a>
