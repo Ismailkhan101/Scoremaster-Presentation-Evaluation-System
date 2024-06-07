@@ -42,6 +42,7 @@ namespace scoremaster_Presentation.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(UserRegisterCreate));
         }
+        [Authorize(Policy = "Changepassword")]
         [HttpGet]
         public IActionResult UserChangePassword( string Message1)
         {
@@ -53,6 +54,7 @@ namespace scoremaster_Presentation.Controllers
            ViewBag.password = Changepass.Password;
             return View(Changepass);
         }
+        [Authorize(Policy = "Changepassword")]
         [HttpPost]
         public IActionResult UserChangePassword(string NewPassword, int Id)
         {

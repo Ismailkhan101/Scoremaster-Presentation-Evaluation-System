@@ -51,7 +51,7 @@
                             <!-- <img src="images/logo.png" alt="" /> --><span>ScoreMaster</span>
                         </a>
                     </div>
-                    @if (User.HasClaim("Permission", "ExternalUser") || User.HasClaim("Permission", "Users") || User.HasClaim("Permission", "UserRegisterCreate"))
+                    @if (User.HasClaim("Permission", "ExternalUser") || User.HasClaim("Permission", "Users") || User.HasClaim("Permission", "UserRegisterCreate") || User.HasClaim("Permission", "Changepassword"))
                     {
                         <li class="label">Main</li>
                         <li>
@@ -73,8 +73,11 @@
                                 {
                                     <li> <a asp-controller="Registration" asp-action="UserRegisterCreate" class="nav-menu-item"><i class="ti-user"></i>Add Empolyee</a></li>
                                 }
+                                @if (User.HasClaim("Permission", "Changepassword"))
+                                {
                                 <li> <a asp-controller="Registration" asp-action="UserChangePassword" class="nav-menu-item"><i class="ti-user"></i>Change Password</a></li>
-                            </ul>
+                                }
+                                </ul>
                         </li>
                     }
                     @if (User.HasClaim("Permission", "Department.List") || User.HasClaim("Permission", "Department.Create"))
