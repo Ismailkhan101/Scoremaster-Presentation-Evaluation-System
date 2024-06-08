@@ -18,8 +18,10 @@ namespace scoremaster_Presentation.Controllers
 
         }
         [HttpGet]
-        public IActionResult LoginPage()
+        public IActionResult LoginPage( string errormessage, string Loginemail)
         {
+            ViewBag.errormessage = errormessage;
+            ViewBag.Loginemail= Loginemail;
             return View();
         }
         [HttpPost]
@@ -28,7 +30,7 @@ namespace scoremaster_Presentation.Controllers
         {
             var Empolyee = await _context.UsersRegistrations.Where(x => x.Email == Login.Email && x.Password == Login.Password).FirstOrDefaultAsync();
           var ExternalUser = await _context.ExternalUserscs.Where(x => x.Email == Login.Email && x.Password== Login.Password).FirstOrDefaultAsync();
-            ViewBag.LoginStatus = true;
+           
 
             if (ModelState.IsValid)
             {
@@ -66,12 +68,12 @@ namespace scoremaster_Presentation.Controllers
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authenticationProperties);
                         return RedirectToAction("Index","Home");
                     }
-
+                
                
 
                 //examiner login 
                 
-                    if (ExternalUser != null)
+                   else if (ExternalUser != null)
                     {
 
                         var exam = await _context.ExternalUserscs.Where(x => x.Email == Login.Email).FirstOrDefaultAsync();
@@ -103,15 +105,16 @@ namespace scoremaster_Presentation.Controllers
                         };
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authenticationProperties);
                         return RedirectToAction("Index", "Home");
-                    }
+                }
+                else
+                {
+                    return RedirectToAction(nameof(LoginPage), new { errormessage = "Wrong email or password", Loginemail= Login.Email });
+                }
 
-               
+
             }
 
-            else
-            {
-                ViewBag.LoginStatus = false;
-            }
+           
 
             return View("LoginPage");
         }

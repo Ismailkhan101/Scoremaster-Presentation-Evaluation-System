@@ -73,7 +73,11 @@ namespace scoremaster_Presentation.Controllers
         public IActionResult EventCreate()
 
         {
-            ViewBag.DeptList = _context.Departments.ToList();
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+
+            ViewBag.DeptList = _context.Departments.Where(x=>x.DepartmentId== emp.DepartmentId).ToList();
             ViewBag.Rubrics = _context.RubricCreates.ToList();
 
             Event Even = new Event();

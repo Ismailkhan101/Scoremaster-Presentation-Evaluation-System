@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using scoremaster_Presentation.Data;
 using scoremaster_Presentation.Models;
+using System.Security.Claims;
 
 namespace scoremaster_Presentation.Controllers
 {
@@ -27,7 +28,10 @@ namespace scoremaster_Presentation.Controllers
         [HttpGet]
         public IActionResult ExternalUserCreate(int Id)
         {
-            ViewBag.DeptList = _context.Departments.ToList();
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+            ViewBag.DeptList = _context.Departments.Where(x=>x.DepartmentId== emp.DepartmentId).ToList();
             ViewBag.Role = _context.Roles.ToList();
             ViewBag.Rubrics = _context.RubricCreates.ToList();
             ExternalUserscs ExternalUser = new ExternalUserscs();

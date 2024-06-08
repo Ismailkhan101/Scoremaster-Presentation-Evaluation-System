@@ -77,7 +77,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Select Co-Supervisor</label>
-                                <select class="form-control group-select" required asp-for="CoSupervisor" asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
+                                <select class="form-control group-select"  asp-for="CoSupervisor" asp-items="@(new SelectList( ViewBag.Supervisor,"UsersRegistrationId","Name"))">
                                     <option value="">select Co-Supervisor</option>
 
                                 </select>
@@ -94,7 +94,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>CMS Id</label>
-                                <input class="form-control " required name="CMSID" placeholder="Enter CMSID">
+                                <input class="form-control " type="number" required name="CMSID" placeholder="Enter CMSID">
 
                             </div>
                         </div>

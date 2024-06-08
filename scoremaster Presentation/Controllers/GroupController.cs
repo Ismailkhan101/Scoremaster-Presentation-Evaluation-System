@@ -56,7 +56,16 @@ namespace scoremaster_Presentation.Controllers
                 .FirstOrDefaultAsync();
 
             group.Supervisor = Supervisor.Name;
-            group.CoSupervisor = CoSupervisor.Name;
+            if(group.CoSupervisor == null)
+            {
+                group.CoSupervisor = "Nill";
+            }
+            else
+            {
+                group.CoSupervisor = CoSupervisor.Name;
+
+            }
+            
             group.UsersRegistrationId = Supervisor.UsersRegistrationId;
             group.IsActive = true;
 
@@ -122,10 +131,17 @@ namespace scoremaster_Presentation.Controllers
             var CoSupervisor = await _context.UsersRegistrations .Where(x => x.UsersRegistrationId == Convert.ToInt32(group.CoSupervisor)).FirstOrDefaultAsync();
 
             group.Supervisor = Supervisor.Name;
-            group.CoSupervisor = CoSupervisor.Name;
+            
             group.UsersRegistrationId = Supervisor.UsersRegistrationId;
             group.IsActive = true;
-
+            if(group.CoSupervisor == null)
+            {
+                group.CoSupervisor = "Nill";
+            }
+            else
+            {
+                group.CoSupervisor = CoSupervisor.Name;
+            }
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
             groupid = group.GroupId;
