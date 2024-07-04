@@ -92,7 +92,7 @@ namespace scoremaster_Presentation.Controllers
 
             return RedirectToAction("AddGroup", new { Id = group.EventId });
         }
-
+        [Authorize(Policy = "Group.AddGroup")]
         public IActionResult GroupDecision(int Id)
         {
             var Decision = _context.Event.Where(x => x.EventId == Id).FirstOrDefault();

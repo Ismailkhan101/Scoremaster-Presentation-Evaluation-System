@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using scoremaster_Presentation.Data;
 
@@ -11,9 +12,10 @@ using scoremaster_Presentation.Data;
 namespace scoremaster_Presentation.Migrations
 {
     [DbContext(typeof(ScoreMasterDbContext))]
-    partial class ScoreMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702075911_evenschdule")]
+    partial class evenschdule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,9 +258,6 @@ namespace scoremaster_Presentation.Migrations
 
                     b.Property<int>("UsersRegistrationId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("dateTime")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("GroupId");
 

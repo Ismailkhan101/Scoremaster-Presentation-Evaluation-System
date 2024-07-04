@@ -20,7 +20,10 @@ namespace scoremaster_Presentation.Controllers
         [HttpGet]
         public IActionResult ExternalUser()
         {
-            var ExUsers = _context.ExternalUserscs.Where(x => x.IsActive == false).ToList();
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+            var ExUsers = _context.ExternalUserscs.Where(x => x.IsActive == false && x.DepartmentId==emp.DepartmentId).ToList();
 
             return View(ExUsers);
         }

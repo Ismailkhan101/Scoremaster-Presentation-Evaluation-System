@@ -31,11 +31,13 @@
                           @*   //<input type="text" class="form-control"  placeholder="Enter year" required asp-for="Year"> *@
                             <select type="text" class="form-control group-select form-select" placeholder="Enter year" required asp-for="Year">
                                 <option value="">Select Year</option>
+                                <option>Fall 2020</option>
+                                <option>Fall 2021</option>
+                                <option>Fall 2022</option>
                                 <option>Fall 2023</option>
-                                <option>Spring 2024</option>
                                 <option>Fall 2024</option>
-                                <option>Spring 2025</option>
                                 <option>Fall 2025</option>
+                                <option>Fall 2026</option>
                                 </select>
                         </div>
                     </div>
@@ -70,6 +72,19 @@
                             <input type="number" class="form-control" asp-for="NoOfExaminers" value="@null" required placeholder="No of examiners">
                         </div>
                     </div>
+                    @* <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="form-control" asp-for="EventDate" value="@null" id="eventDate" placeholder="Select date">
+                        </div>
+                    </div> *@
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Presentaton Schduled(Location)</label>
+                            <input type="text" class="form-control" asp-for="EvenSchduled" value="@null"  placeholder="Enter location">
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Rubric</label>
@@ -90,3 +105,9 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("eventDate").setAttribute('min', today);
+    });
+</script>

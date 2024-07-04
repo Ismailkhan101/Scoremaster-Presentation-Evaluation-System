@@ -84,14 +84,20 @@
                                 <div class="invalid-feedback">Example invalid custom select feedback</div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="datetime-local" class="form-control" asp-for="dateTime" value="@null" id="eventDate" placeholder="Select date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Member Name</label>
                                 <input class="form-control " required name="Name" placeholder="Eter Name">
 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>CMS Id</label>
                                 <input class="form-control " type="number" required name="CMSID" placeholder="Enter CMSID">
@@ -118,3 +124,9 @@ else
 {
     <th><h1>Group details are completed</h1></th>
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("eventDate").setAttribute('min', today);
+    });
+</script>

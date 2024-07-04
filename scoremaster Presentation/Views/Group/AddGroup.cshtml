@@ -84,6 +84,12 @@
                             <div class="invalid-feedback">Example invalid custom select feedback</div>
                         </div>
                     </div>
+                        <div class="col-md-6">
+                    <div class="form-group">
+                    <label>Date</label>
+                    <input type="datetime-local" class="form-control" asp-for="dateTime" value="@null" id="eventDate" placeholder="Select date">
+                    </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <button type="button" style="margin-top:32px;" class="btn btn-primary btn-sm form-control" id="addMember">Add Members</button>
@@ -182,5 +188,11 @@ else
                 // Handle network or other errors
             });
     });
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("eventDate").setAttribute('min', today);
+        });
+
 </script>
 

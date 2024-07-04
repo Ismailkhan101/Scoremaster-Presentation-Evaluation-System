@@ -7,12 +7,20 @@ using scoremaster_Presentation.ViewModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Security.Claims;
+ // For ASP.NET MVC
+// or using Microsoft.AspNetCore.Mvc; // For ASP.NET Core
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using System;
+using System.IO;
 
 namespace scoremaster_Presentation.Controllers
 {
     public class EventController : Controller
     {
+        
         private readonly ScoreMasterDbContext _context;
+        
         public EventController(ScoreMasterDbContext context)
         {
             _context = context;
@@ -246,5 +254,76 @@ namespace scoremaster_Presentation.Controllers
 
 
         }
+        [Authorize(Policy = "EventSchdule")]
+        [HttpGet]
+        public async Task<IActionResult> EventSchdule(int Id)
+        {
+            ViewBag.schdule = await (from a in _context.Event
+                                     join b in _context.Groups on a.EventId equals b.EventId into eventsch
+                                     from eventschdule in eventsch.DefaultIfEmpty()
+                                     join c in _context.MemberDatas on eventschdule.GroupId equals c.GroupId into members
+                                     from membersdata in members.DefaultIfEmpty()
+                                     where a.EventId == Id
+                                     group new
+                                     {
+                                         MemberName = membersdata != null ? membersdata.MemberName : "NULL",
+                                         GroupId = eventschdule != null ? eventschdule.GroupId : (int?)null,
+                                         ExternalExaminerName = _context.ExternalUserscs.Where(eu => eu.EventId == a.EventId).Select(eu => eu.Name).ToList()
+                                     } by new
+                                     {
+                                         eventschdule.Title,
+                                         eventschdule.dateTime,
+                                         eventschdule.Supervisor,
+                                         eventschdule.CoSupervisor,
+                                         a.EvenSchduled,
+                                     } into g
+                                     select new
+                                     {
+                                         EvenSchduled=g.Key.EvenSchduled,
+                                         Title = g.Key.Title,
+                                         EventDate = g.Key.dateTime,
+                                         Supervisor = g.Key.Supervisor,
+                                         CoSupervisor = g.Key.CoSupervisor,
+                                         ExternalExaminers = g.SelectMany(x => x.ExternalExaminerName).Distinct().ToList(),
+                                         Members = g.Select(x => new
+                                         {
+                                             x.GroupId,
+                                             x.MemberName
+                                         }).ToList()
+                                     }).ToListAsync();
+
+
+
+            return View();
+
+
+        }
+      /*  public ActionResult GeneratePDF()
+        {
+            // Your HTML content (replace with your actual HTML content)
+            string htmlContent = @"
+            <html>
+            <head><title>PDF Generated</title></head>
+            <body>
+                <h1>Generated PDF from HTML</h1>
+                <p>This is a sample PDF generated from HTML content.</p>
+            </body>
+            </html>
+        ";
+
+            // Define the output directory and file name
+            string outputDirectory = Server.MapPath("~/Content/PDFs");
+            Directory.CreateDirectory(outputDirectory); // Ensure the directory exists
+            string outputPath = Path.Combine(outputDirectory, "GeneratedPDF.pdf");
+
+            // Instantiate PDFGenerator class
+            PDFGenerator pdfGenerator = new PDFGenerator();
+
+            // Call the GeneratePDF method
+            pdfGenerator.GeneratePDF(htmlContent, outputPath);
+
+            // Return an empty result or redirect as needed
+            return new EmptyResult();
+        }*/
     }
 }

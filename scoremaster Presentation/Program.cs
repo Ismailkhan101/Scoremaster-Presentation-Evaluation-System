@@ -78,6 +78,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RubricsCreate", policy => policy.RequireClaim("Permission", "RubricsCreate"));
     options.AddPolicy("JoinEventCoordinator", policy => policy.RequireClaim("Permission", "JoinEventCoordinator"));
     options.AddPolicy("Changepassword", policy => policy.RequireClaim("Permission", "Changepassword"));
+    options.AddPolicy("EventSchdule", policy => policy.RequireClaim("Permission", "EventSchdule"));
 
 
 

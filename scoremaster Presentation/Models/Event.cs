@@ -19,7 +19,7 @@ namespace scoremaster_Presentation.Models
         public DateTime EventDate { get; set; }
          [Required]
         public int NoOfExaminers { get; set; }
-
+        public string? EvenSchduled { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
         public int DepartmentId { get; set; }
