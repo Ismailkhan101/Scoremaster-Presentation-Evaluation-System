@@ -20,8 +20,11 @@ namespace scoremaster_Presentation.Controllers
         [HttpGet]
         public IActionResult Users()
         {
-            var Users = _context.UsersRegistrations.Where(x=>x.IsDeleted==false).ToList();
-//jkj
+            var user = User.FindFirst(ClaimTypes.Sid)?.Value;
+            int uIdint = Convert.ToInt32(user);
+            var emp = _context.UsersRegistrations.Where(x => x.UsersRegistrationId == uIdint).FirstOrDefault();
+            var Users = _context.UsersRegistrations.Where(x=>x.IsDeleted==false && x.DepartmentId==emp.DepartmentId).ToList();
+
             return View(Users);
         }
         [Authorize(Policy = "UserRegisterCreate")]
