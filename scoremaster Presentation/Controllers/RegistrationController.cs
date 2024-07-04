@@ -20,8 +20,8 @@ namespace scoremaster_Presentation.Controllers
         [HttpGet]
         public IActionResult Users()
         {
-            var Users = _context.UsersRegistrations.Where(x=>x.IsDeleted==false).ToList();    
-
+            var Users = _context.UsersRegistrations.Where(x=>x.IsDeleted==false).ToList();
+//jkj
             return View(Users);
         }
         [Authorize(Policy = "UserRegisterCreate")]
